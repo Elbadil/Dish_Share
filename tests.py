@@ -4,7 +4,7 @@ import models
 from models.user import User
 from models.recipe import Recipe
 
-# dictionary = {'username': 'ouiam', 'email':'elb@aadail', 'password': 'elbadil'}
+dictionary = {'user_id': '86bbddfd-27ba-4b87-a06b-c9f4703cb992', 'title':'chicken', 'description': 'Nice'}
 
 # haytam = User(**dictionary)
 # models.storage.new(haytam)
@@ -12,10 +12,9 @@ from models.recipe import Recipe
 
 # print(haytam)
 
-adel = models.storage.get(User, '03eef546-1a8a-4056-890b-97adb2799bab')
-adels_recipes = adel.recipes
-for recipe in adels_recipes:
-    print(recipe)
+recipe = Recipe(**dictionary)
+models.storage.new(recipe)
+models.storage.save()
 
 # ouiam = models.storage.get(User, 'da1ea8b2-4c48-4241-a81a-5b57b9fa2b2a')
 # models.storage.delete(ouiam)

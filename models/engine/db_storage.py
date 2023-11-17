@@ -44,8 +44,8 @@ class DBstorage():
         for clss in classes_to_query:
             objects = self.__session.query(clss).all()
             for obj in objects:
-                if hasattr(obj, '_sa_instance_state'):
-                    delattr(obj, '_sa_instance_state')
+                # if hasattr(obj, '_sa_instance_state'):
+                #     delattr(obj, '_sa_instance_state')
                 dictionay[f'{obj.__class__.__name__}.{obj.id}'] = obj
   
         return dictionay

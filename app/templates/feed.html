@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+{% block content %}
+    {% for recipe in recipes.values() %}
+    <article class="media content-section">
+        <div class="media-body">
+        <div class="article-metadata">
+            <a class="mr-2" href="#">{{ recipe.user.username }}</a>
+            <small class="text-muted">{{ recipe.created_at }}</small>
+        </div>
+        <h2><a class="article-title" href="#">{{ recipe.title }}</a></h2>
+        <p class="article-content">{{ recipe.description }}</p>
+        </div>
+    </article>
+    {% endfor %}
+{% endblock content %}
