@@ -17,4 +17,3 @@ class User(BaseModel, Base):
     last_name = Column(String(128), nullable=True)
     recipes = relationship('Recipe', backref='user',
                            cascade='all, delete, delete-orphan')
-    

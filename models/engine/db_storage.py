@@ -73,13 +73,13 @@ class DBstorage():
         """closes the session"""
         self.__session.close()
 
-    def get(self, obj, obj_id):
+    def get(self, cls, obj_id):
         """Gets the object that matches the obj_id"""
-        objts = self.__session.query(obj).all()
+        objts = self.__session.query(cls).all()
         if objts is None:
             return None
         else:
-            for objt in objts:
-                if objt.id == obj_id:
-                    return objt
+            for obj in objts:
+                if obj.id == obj_id:
+                    return obj
         return None

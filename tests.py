@@ -17,6 +17,6 @@ adels_recipes = adel.recipes
 for recipe in adels_recipes:
     print(recipe)
 
-ouiam = models.storage.get(User, 'da1ea8b2-4c48-4241-a81a-5b57b9fa2b2a')
-models.storage.delete(ouiam)
-models.storage.save()
+# ouiam = models.storage.get(User, 'da1ea8b2-4c48-4241-a81a-5b57b9fa2b2a')
+# models.storage.delete(ouiam)
+# models.storage.save()

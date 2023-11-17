@@ -13,5 +13,6 @@ class Recipe(BaseModel, Base):
     user_id = Column(String(60), ForeignKey('users.id'), nullable=False)
     title = Column(String(128), nullable=False)
     description = Column(Text, nullable=False)
+    image = Column(String(255), nullable=False)
     engredients = relationship('Ingredient', backref='recipe',
                                cascade='all, delete, delete-orphan')
