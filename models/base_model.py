@@ -23,7 +23,10 @@ class BaseModel():
 
     def save(self):
         """updates and saves object"""
+        from models import storage
         self.updated_at = datetime.now()
+        storage.new(self)
+        storage.save()
 
     def to_dict(self):
         """returns a dictionay representation of an object"""
@@ -31,4 +34,11 @@ class BaseModel():
         dictionay['__class__'] = self.__class__.__name__
         dictionay['created_at'] = self.created_at.isoformat()
         dictionay['updated_at'] = self.updated_at.isoformat()
+        if '_sa_instance_state' in dictionay.keys():
+            del dictionay['_sa_instance_state']
         return dictionay
+
+    def delete(self):
+        """deletes an object from the storage"""
+        from models import storage
+        storage.delete(self)
