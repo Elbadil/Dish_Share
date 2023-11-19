@@ -2,26 +2,21 @@
 """Main routes for the web app"""
 from flask import Flask, render_template, url_for, flash, redirect
 from app.forms import RegistrationForm, LoginForm
-from models.recipe import Recipe
-from os import getenv
+from app import app, db
+from flask_sqlalchemy import SQLAlchemy
 from dotenv import load_dotenv
 import requests
-import models
 
 load_dotenv()
-
-# Flask app
-app = Flask(__name__)
-
-app.config['SECRET_KEY'] = getenv('SECRET_KEY')
 
 # recipe feed route
 @app.route('/')
 @app.route('/recipe_feed', strict_slashes=False)
 def recipe_feed():
     """recipe feed page"""
-    recipes = models.storage.all(Recipe)
-    return render_template('feed.html', recipes=recipes, title='Recipe Feed')
+    from app.models import Recipe
+    recipes = Recipe.query.all()
+    return render_template('feed.html', recipes=recipes, title="feed")
 
 # Registration route
 @app.route('/register', methods=['GET', 'POST'], strict_slashes=False)

@@ -25,9 +25,9 @@ class DBstorage():
         pwd = getenv("DS_PWD")
         host = getenv("DS_HOST")
         db = getenv("DS_DB")
-        link = f"mysql+mysqldb://{user}:{pwd}@{host}/{db}"
+        # link = f"mysql+mysqldb://{user}:{pwd}@{host}/{db}"
 
-        self.__engine = create_engine(link, pool_pre_ping=True)
+        # self.__engine = create_engine(link, pool_pre_ping=True)
 
     def all(self, cls=None):
         """Returns a dictionay of all objects of a class if defined
