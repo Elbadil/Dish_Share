@@ -1,8 +1,8 @@
 #!/usr/bin/python3
 """Main routes for the web app"""
-from flask import render_template, url_for, flash, redirect
+from flask import render_template, url_for, flash, redirect, request
 from app.forms import RegistrationForm, LoginForm
-from flask_login import login_user
+from flask_login import login_user, current_user, logout_user, login_required
 from app.models import User
 from app import app, db, bcrypt
 from dotenv import load_dotenv
@@ -17,7 +17,7 @@ def recipe_feed():
     """recipe feed page"""
     from app.models import Recipe
     recipes = Recipe.query.all()
-    return render_template('feed.html', recipes=recipes, title="feed")
+    return render_template('feed.html', recipes=recipes, title="Recipe Feed")
 
 # Registration route
 @app.route('/register', methods=['GET', 'POST'], strict_slashes=False)
@@ -45,10 +45,26 @@ def login():
         if user and bcrypt.check_password_hash(user.password, form.password.data):
             # Setting up the user session after successful authentication
             login_user(user, remember=form.remember.data)
-            return redirect(url_for('recipe_feed'))
+            # the page that the user was not allowed to enter
+            next_page = request.args.get('next')
+            return redirect(next_page) if next_page else redirect(url_for('recipe_feed'))
         else:
             flash('Login Unsuccessful. Please check your email and password', 'danger')
     return render_template('login.html', form=form, title='Login')
+
+# Logout route
+@app.route('/logout', strict_slashes=False)
+def logout():
+    """Logout page"""
+    logout_user()
+    return redirect(url_for('recipe_feed'))
+
+# account route
+@app.route('/account', strict_slashes=False)
+@login_required
+def account():
+    """User Profile Page"""
+    return render_template('account.html', title=current_user.username)
 
 
 if __name__ == "__main__":
