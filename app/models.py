@@ -1,11 +1,19 @@
 #!/usr/bin/python3
 """Models for our web app"""
-from app import db
+from app import db, login_manager
 from datetime import datetime
 from dotenv import load_dotenv
+from flask_login import UserMixin
 import uuid
 
 load_dotenv()
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    """Returns the user that matches the given user_id"""
+    return User.query.get(user_id)
+
 
 class BaseModel:
     """Base model with common attributes."""
@@ -18,7 +26,7 @@ class BaseModel:
         return f"[{self.__class__.__name__}] ({self.id}) {self.__dict__}"
 
 
-class User(BaseModel, db.Model):
+class User(BaseModel, db.Model, UserMixin):
     """User Model for the web app users"""
     __tablename__ = "users"
     username = db.Column(db.String(20), unique=True, nullable=False)
