@@ -25,6 +25,10 @@ class BaseModel:
         """string representation of an object"""
         return f"[{self.__class__.__name__}] ({self.id}) {self.__dict__}"
 
+    def update(self):
+        """Updated updated_at with the new datetime"""
+        self.updated_at = datetime.utcnow()
+
 
 class User(BaseModel, db.Model, UserMixin):
     """User Model for the web app users"""

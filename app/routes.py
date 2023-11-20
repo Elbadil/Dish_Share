@@ -1,11 +1,14 @@
 #!/usr/bin/python3
 """Main routes for the web app"""
 from flask import render_template, url_for, flash, redirect, request
-from app.forms import RegistrationForm, LoginForm
+from app.forms import RegistrationForm, LoginForm, UpdateAccountForm
 from flask_login import login_user, current_user, logout_user, login_required
 from app.models import User
 from app import app, db, bcrypt
+from PIL import Image
+import secrets
 from dotenv import load_dotenv
+import os
 import requests
 
 load_dotenv()
@@ -59,12 +62,47 @@ def logout():
     logout_user()
     return redirect(url_for('recipe_feed'))
 
+# Saves the profile picture entered by the user and returns the path
+def save_pfp(form_picture):
+    """Saves the profile picture of the user in the static/images directory
+    and returs the picture's file path"""
+    picture_extension = form_picture.filename.split('.')[1]
+    random_hex = secrets.token_hex(8)
+    picture_fn = random_hex + '.' + picture_extension
+    picture_path = os.path.join(app.root_path, 'static/images', picture_fn)
+    # Resize the picture before saving
+    # output_size = (250, 250)
+    # i = Image.open(form_picture)
+    # i.thumbnail(output_size)
+    # saves the picture to the specified file path using the save method
+    form_picture.save(picture_path)
+    # i.save(picture_path)
+    return picture_fn
+
+
 # account route
-@app.route('/account', strict_slashes=False)
+@app.route('/account', methods=['GET', 'POST'], strict_slashes=False)
 @login_required
 def account():
     """User Profile Page"""
-    return render_template('account.html', title=current_user.username)
+    form = UpdateAccountForm()
+    if form.validate_on_submit():
+        if form.picture.data:
+            picture_file = save_pfp(form.picture.data)
+            current_user.image_file = picture_file
+        current_user.username = form.username.data
+        current_user.email = form.email.data
+        current_user.update()
+        db.session.commit()
+        flash('Your account has been updated!', 'success')
+        return redirect(url_for('account'))
+    # Displays the current email and username in the inputs
+    elif request.method == 'GET':
+        form.username.data = current_user.username
+        form.email.data = current_user.email
+    image_file = url_for('static', filename=f'images/{current_user.image_file}')
+    return render_template('account.html', title=current_user.username,
+                           image_file=image_file, form=form)
 
 
 if __name__ == "__main__":
