@@ -17,7 +17,7 @@ def load_user(user_id):
 
 class BaseModel:
     """Base model with common attributes."""
-    id = db.Column(db.String(128), primary_key=True, default=str(uuid.uuid4()))
+    id = db.Column(db.String(128), primary_key=True, default=lambda: str(uuid.uuid4()))
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow)
 
@@ -46,9 +46,12 @@ class Recipe(BaseModel, db.Model):
     __tablename__ = "recipes"
     user_id = db.Column(db.String(128), db.ForeignKey('users.id'), nullable=False)
     title = db.Column(db.String(120), nullable=False)
-    recipe_image = db.Column(db.String(20), nullable=False)
+    image_file = db.Column(db.String(20))
     description = db.Column(db.Text, nullable=False)
-    engredients = db.relationship('Ingredient',
+    ingredients = db.relationship('Ingredient',
+                                  backref='recipe', cascade='all, delete-orphan',
+                                  lazy=True)
+    instructions = db.relationship('Instruction',
                                   backref='recipe', cascade='all, delete-orphan',
                                   lazy=True)
     comments = db.relationship('Comment',
@@ -60,8 +63,14 @@ class Ingredient(BaseModel, db.Model):
     """Ingredient Model for the web app users recipes ingredients"""
     __tablename__ = "ingredients"
     recipe_id = db.Column(db.String(128), db.ForeignKey('recipes.id'), nullable=False)
-    name = db.Column(db.String(60), nullable=False)
-    usage = db.Column(db.Text, nullable=False)
+    name = db.Column(db.String(128), nullable=False)
+
+
+class Instruction(BaseModel, db.Model):
+    """Comment Model for the web app users recipes instructions"""
+    __tablename__ = "instructions"
+    recipe_id = db.Column(db.String(128), db.ForeignKey('recipes.id'), nullable=False)
+    text = db.Column(db.Text, nullable=False)
 
 
 class Comment(BaseModel, db.Model):

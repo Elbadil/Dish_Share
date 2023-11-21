@@ -1,9 +1,9 @@
 #!/usr/bin/python3
 """Defining Form for registration"""
-from flask_wtf import FlaskForm
+from flask_wtf import FlaskForm, Form
 from flask_wtf.file import FileField, FileAllowed
 from flask_login import current_user
-from wtforms import StringField, PasswordField, SubmitField, BooleanField
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextAreaField, FieldList, FormField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from app.models import User
 
@@ -61,3 +61,23 @@ class UpdateAccountForm(FlaskForm):
             user = User.query.filter_by(email=email.data).first()
             if user:
                 raise ValidationError('This email already exists. Please choose a different one')
+
+
+class Ingredients(Form):
+    """For the Recipe Ingredients List of Fields"""
+    ingredient = StringField(validators=[DataRequired()])
+
+
+class Instructions(Form):
+    """For the Recipe Instructions List of Fields"""
+    instruction = TextAreaField(validators=[DataRequired()])
+
+
+class PostForm(FlaskForm):
+    """Class for the Post Recipe Form"""
+    title = StringField('Recipe Title', validators=[DataRequired()])
+    description = TextAreaField('Description', validators=[DataRequired()])
+    ingredients = FieldList(FormField(Ingredients), min_entries=3)
+    instructions = FieldList(FormField(Instructions), min_entries=2)
+    picture = FileField('Recipe Photo (optional)', validators=[FileAllowed(['jpg', 'png'])])
+    submit = SubmitField('Add Recipe')

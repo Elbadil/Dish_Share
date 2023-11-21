@@ -1,0 +1,94 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="content-section">
+    <form method="POST" action="" enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">Add A Recipe</legend>
+            <!-- Title -->
+            <div class="form-group">
+                {{ form.title.label(class="form-control-label") }}
+                {% if form.title.errors %}
+                    {{ form.title(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.title.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.title(class="form-control form-control-lg") }}
+                {% endif %}
+            </div>
+            <!-- Descripton -->
+            <div class="form-group">
+                {{ form.description.label(class="form-control-label") }}
+                {% if form.description.errors %}
+                    {{ form.description(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                    {% for error in form.description.errors %}
+                            <span>{{ error }}</span>
+                    {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.description(class="form-control form-control-lg") }}
+                {% endif %}
+            </div><hr>
+            <!-- Ingredients -->
+            <div class="form-group">
+                {{ form.ingredients.label(class="form-control-label") }}
+                <div id="ingredients-container">
+                    {% for ingredient in form.ingredients %}
+                        {{ ingredient['ingredient'](class="form-control form-control-lg") }}<br>
+                    {% endfor %}
+                </div>
+            </div>
+            <button type="button" class="btn btn-outline-info" id="add-ingredient-btn">Add Ingredient</button>
+            <hr>
+            <!-- Instructions -->
+            <div class="form-group">
+                {{ form.instructions.label(class="form-control-label") }}
+                <div id="instructions-container">
+                    {% for instruction in form.instructions %}
+                        {{ instruction['instruction'](class="form-control form-control-lg") }}<br>
+                    {% endfor %}
+                </div>
+            </div>
+            <button type="button" class="btn btn-outline-info" id="add-instruction-btn">Add Instruction</button><hr>
+            <div class="form-group">
+                {{ form.picture.label() }}
+                {{ form.picture(class="form-control-file") }}
+                {% if form.picture.errors %}
+                    {% for error in form.picture.errors %}
+                        <span class="text-danger">{{ error }}</span></br>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </fieldset>
+        <div class="form-group">
+            {{ form.submit(class="btn btn-outline-info")}}
+        </div>
+    </form>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          const container = document.getElementById('ingredients-container');
+          const addButton = document.getElementById('add-ingredient-btn');
+    
+          addButton.addEventListener('click', function() {
+            const newIngredient = container.firstElementChild.cloneNode(true);
+            container.appendChild(newIngredient);
+            container.appendChild(document.createElement('br'));
+          });
+        });
+        document.addEventListener('DOMContentLoaded', function() {
+          const container = document.getElementById('instructions-container');
+          const addButton = document.getElementById('add-instruction-btn');
+    
+          addButton.addEventListener('click', function() {
+            const newInstruction = container.firstElementChild.cloneNode(true);
+            container.appendChild(newInstruction);
+            container.appendChild(document.createElement('br'));
+          });
+        });
+    </script>
+</div>
+{% endblock content %}
