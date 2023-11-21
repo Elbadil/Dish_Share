@@ -36,7 +36,7 @@
             <!-- Ingredients -->
             <div class="form-group">
                 {{ form.ingredients.label(class="form-control-label") }}
-                <div id="ingredients-container">
+                <div id="ingredient-list" data-initial-count="{{ form.ingredients | length }}">
                     {% for ingredient in form.ingredients %}
                         {{ ingredient['ingredient'](class="form-control form-control-lg") }}<br>
                     {% endfor %}
@@ -47,8 +47,9 @@
             <!-- Instructions -->
             <div class="form-group">
                 {{ form.instructions.label(class="form-control-label") }}
-                <div id="instructions-container">
+                <div id="instruction-list" data-initial-count="{{ form.instructions | length }}">
                     {% for instruction in form.instructions %}
+                        <h6 id="steps" data-step-count="{{ loop.index|string }}" >Step {{ loop.index|string }}</h6>
                         {{ instruction['instruction'](class="form-control form-control-lg") }}<br>
                     {% endfor %}
                 </div>
@@ -68,26 +69,33 @@
             {{ form.submit(class="btn btn-outline-info")}}
         </div>
     </form>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-          const container = document.getElementById('ingredients-container');
-          const addButton = document.getElementById('add-ingredient-btn');
-    
-          addButton.addEventListener('click', function() {
-            const newIngredient = container.firstElementChild.cloneNode(true);
-            container.appendChild(newIngredient);
-            container.appendChild(document.createElement('br'));
-          });
-        });
-        document.addEventListener('DOMContentLoaded', function() {
-          const container = document.getElementById('instructions-container');
-          const addButton = document.getElementById('add-instruction-btn');
-    
-          addButton.addEventListener('click', function() {
-            const newInstruction = container.firstElementChild.cloneNode(true);
-            container.appendChild(newInstruction);
-            container.appendChild(document.createElement('br'));
-          });
+        $(document).ready(function () {
+            const initialIngredientCount = $("#ingredient-list").data("initial-count");
+            let ingredientCount = initialIngredientCount;
+            // Add Ingredient
+            $("#add-ingredient-btn").click(function () {
+                const ingredientList = $("#ingredient-list");
+                let ingredientEntry = '{{ form.ingredients[0].ingredient(class="form-control form-control-lg") }}';
+                ingredientCount += 1;
+                ingredientEntry = ingredientEntry.replace(/ingredients-0-ingredient/g, 'ingredients-' + ingredientCount + '-ingredient');
+                ingredientList.append(ingredientEntry + '<br>');
+            });
+            // Add Instruction
+            const initialInstructionCount = $("#instruction-list").data("initial-count");
+            let instructionCount = initialInstructionCount;
+            const initialStepsCount = $("#steps").data("step-count")
+            let stepCount = initialInstructionCount;
+            $("#add-instruction-btn").click(function () {
+                const instructionList = $("#instruction-list");
+                let instructionEntry = '<textarea class="form-control form-control-lg" id="instructions-0-instruction" name="instructions-0-instruction" required></textarea>';
+                instructionCount += 1;
+                stepCount += 1;
+                instructionEntry = instructionEntry.replace(/instructions-0-instruction/g, 'instructions-' + instructionCount + '-instruction');
+                instructionList.append("<h6>Step " + stepCount + "</h6>");
+                instructionList.append(instructionEntry + '<br>');
+            });
         });
     </script>
 </div>

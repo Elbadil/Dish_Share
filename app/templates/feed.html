@@ -1,14 +1,24 @@
 {% extends "layout.html" %}
 {% block content %}
-    {% for recipe in recipes %}
+    {% for recipe in recipes | sort(attribute='created_at', reverse=True) %}
     <article class="media content-section">
         <div class="media-body">
         <div class="article-metadata">
             <a class="mr-2" href="#">{{ recipe.user.username }}</a>
             <small class="text-muted">{{ recipe.created_at }}</small>
         </div>
-        <h2><a class="article-title" href="#">{{ recipe.title }}</a></h2>
-        <p class="article-content">{{ recipe.description }}</p>
+            <h2><a class="article-title" href="#">{{ recipe.title }}</a></h2>
+            <p class="article-content">{{ recipe.description }}</p>
+            <ul>
+                {% for ingredient in recipe.ingredients | sort(attribute='created_at') %}
+                <li>{{ ingredient.name }}</li>
+                {% endfor %}
+            </ul>
+            <ol>
+                {% for instruction in recipe.instructions | sort(attribute='created_at') %}
+                <li>{{ instruction.text }}</li>
+                {% endfor %}
+            </ol>
         </div>
     </article>
     {% endfor %}
