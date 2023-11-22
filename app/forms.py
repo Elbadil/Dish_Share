@@ -80,4 +80,4 @@ class PostForm(FlaskForm):
     ingredients = FieldList(FormField(Ingredients), min_entries=3)
     instructions = FieldList(FormField(Instructions), min_entries=2)
     picture = FileField('Recipe Photo (optional)', validators=[FileAllowed(['jpg', 'png'])])
-    submit = SubmitField('Add Recipe')
+    submit = SubmitField('Post Recipe')

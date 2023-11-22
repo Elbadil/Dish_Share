@@ -64,12 +64,14 @@ class Ingredient(BaseModel, db.Model):
     __tablename__ = "ingredients"
     recipe_id = db.Column(db.String(128), db.ForeignKey('recipes.id'), nullable=False)
     name = db.Column(db.String(128), nullable=False)
+    order = db.Column(db.Integer, nullable=False)
 
 
 class Instruction(BaseModel, db.Model):
     """Comment Model for the web app users recipes instructions"""
     __tablename__ = "instructions"
     recipe_id = db.Column(db.String(128), db.ForeignKey('recipes.id'), nullable=False)
+    step = db.Column(db.Integer, nullable=False)
     text = db.Column(db.Text, nullable=False)
 
 

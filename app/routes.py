@@ -109,6 +109,8 @@ def account():
 def new_recipe():
     """Adds new recipe by the user"""
     form = PostForm()
+    ingredient_lmt = 2
+    instruction_lmt = 2
     if form.validate_on_submit():
         recipe = Recipe(user_id=current_user.id, title=form.title.data, description=form.description.data)
         if form.picture.data:
@@ -116,16 +118,23 @@ def new_recipe():
             recipe.image_file = picture_fn
         db.session.add(recipe)
         db.session.commit()
+        # Add Recipe Ingredients
+        order = 1
         for ingredient in form.ingredients:
-            new_ingredient = Ingredient(recipe_id=recipe.id, name=ingredient.data['ingredient'])
+            new_ingredient = Ingredient(recipe_id=recipe.id, name=ingredient.data['ingredient'], order=order)
             db.session.add(new_ingredient)
+            order += 1
+        # Add Recipe Instructions
+        step = 1
         for instruction in form.instructions:
-            new_instruction = Instruction(recipe_id=recipe.id, text=instruction.data['instruction'])
+            new_instruction = Instruction(recipe_id=recipe.id, text=instruction.data['instruction'], step= step)
             db.session.add(new_instruction)
+            step += 1
         db.session.commit()
         flash('Your new Recipe has been posted!', 'success')
         return redirect(url_for('recipe_feed'))
-    return render_template('new_recipe.html', form=form, title="New Recipe")
+    return render_template('new_recipe.html', form=form, title="New Recipe",
+                           instruction_lmt=instruction_lmt, ingredient_lmt=ingredient_lmt)
 
 
 if __name__ == "__main__":

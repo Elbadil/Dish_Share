@@ -43,6 +43,7 @@
                 </div>
             </div>
             <button type="button" class="btn btn-outline-info" id="add-ingredient-btn">Add Ingredient</button>
+            <button type="button" class="btn btn-outline-danger" id="remove-ingredient-btn">Remove Ingredient</button>
             <hr>
             <!-- Instructions -->
             <div class="form-group">
@@ -54,7 +55,8 @@
                     {% endfor %}
                 </div>
             </div>
-            <button type="button" class="btn btn-outline-info" id="add-instruction-btn">Add Instruction</button><hr>
+            <button type="button" class="btn btn-outline-info" id="add-instruction-btn">Add Instruction</button>
+            <button type="button" class="btn btn-outline-danger" id="remove-instruction-btn">Remove Instruction</button><hr>
             <div class="form-group">
                 {{ form.picture.label() }}
                 {{ form.picture(class="form-control-file") }}
@@ -66,35 +68,54 @@
             </div>
         </fieldset>
         <div class="form-group">
-            {{ form.submit(class="btn btn-outline-info")}}
+            {{ form.submit(class="btn btn-outline-success")}}
         </div>
     </form>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script>
         $(document).ready(function () {
             const initialIngredientCount = $("#ingredient-list").data("initial-count");
-            let ingredientCount = initialIngredientCount;
+            const ingredientList = $("#ingredient-list");
+            let ingredientCount = initialIngredientCount - 1;
             // Add Ingredient
             $("#add-ingredient-btn").click(function () {
-                const ingredientList = $("#ingredient-list");
-                let ingredientEntry = '{{ form.ingredients[0].ingredient(class="form-control form-control-lg") }}';
                 ingredientCount += 1;
-                ingredientEntry = ingredientEntry.replace(/ingredients-0-ingredient/g, 'ingredients-' + ingredientCount + '-ingredient');
-                ingredientList.append(ingredientEntry + '<br>');
+                let ingredientEntry = `<div id="ingredient-${ingredientCount}">
+                                            <input class="form-control form-control-lg" id="ingredients-${ingredientCount}-ingredient"
+                                            name="ingredients-${ingredientCount}-ingredient" required type="text" value><br>
+                                        </div>`;
+                ingredientList.append(ingredientEntry);
+            });
+            // Remove Ingredient
+            $("#remove-ingredient-btn").click(function () {
+                // Check if there are ingredients to remove
+                if (ingredientCount > 0) {
+                    $(`#ingredient-${ingredientCount}`).remove();
+                    ingredientCount -= 1;
+                }
             });
             // Add Instruction
-            const initialInstructionCount = $("#instruction-list").data("initial-count");
-            let instructionCount = initialInstructionCount;
-            const initialStepsCount = $("#steps").data("step-count")
-            let stepCount = initialInstructionCount;
+            const instructionList = $("#instruction-list");
+            let instructionCount = $("#instruction-list").data("initial-count") - 1;
+            let stepCount = $("#steps").data("step-count") + 1;
             $("#add-instruction-btn").click(function () {
-                const instructionList = $("#instruction-list");
-                let instructionEntry = '<textarea class="form-control form-control-lg" id="instructions-0-instruction" name="instructions-0-instruction" required></textarea>';
                 instructionCount += 1;
                 stepCount += 1;
-                instructionEntry = instructionEntry.replace(/instructions-0-instruction/g, 'instructions-' + instructionCount + '-instruction');
-                instructionList.append("<h6>Step " + stepCount + "</h6>");
-                instructionList.append(instructionEntry + '<br>');
+                const instructionEntry = `<div id="instruction-${instructionCount}">
+                                            <h6>Step ${stepCount}</h6>
+                                                <textarea class="form-control form-control-lg id="instructions-${instructionCount}-instruction"
+                                                name="instructions-${instructionCount}-instruction" required></textarea><br>
+                                        </div>`;
+                instructionList.append(instructionEntry);
+            });
+            // Remove Instruction
+            $("#remove-instruction-btn").click(function () {
+                // Check if there are instructions to remove
+                if (instructionCount > 0) {
+                    $(`#instruction-${instructionCount}`).remove();
+                    instructionCount -= 1;
+                    stepCount -= 1;
+                }
             });
         });
     </script>
