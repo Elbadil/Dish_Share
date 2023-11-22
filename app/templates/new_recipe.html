@@ -71,50 +71,77 @@
             {{ form.submit(class="btn btn-outline-success")}}
         </div>
     </form>
+    <style>
+        #remove-ingredient-btn {
+            display: none;
+        }
+        #remove-instruction-btn {
+            display: none;
+        }
+    </style>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script>
         $(document).ready(function () {
             const initialIngredientCount = $("#ingredient-list").data("initial-count");
             const ingredientList = $("#ingredient-list");
-            let ingredientCount = initialIngredientCount - 1;
+            let ingredientCount = initialIngredientCount;
             // Add Ingredient
             $("#add-ingredient-btn").click(function () {
                 ingredientCount += 1;
-                let ingredientEntry = `<div id="ingredient-${ingredientCount}">
-                                            <input class="form-control form-control-lg" id="ingredients-${ingredientCount}-ingredient"
-                                            name="ingredients-${ingredientCount}-ingredient" required type="text" value><br>
+                let ingredientEntry = `<div id="ingredient-${ingredientCount - 1}">
+                                            <input class="form-control form-control-lg"
+                                            id="ingredients-${ingredientCount - 1}-ingredient"
+                                            name="ingredients-${ingredientCount - 1}-ingredient" required type="text" value><br>
                                         </div>`;
                 ingredientList.append(ingredientEntry);
+                // show the remove button if the ingredients are above 3
+                if (ingredientCount > 3) {
+                    $("#remove-ingredient-btn").show();
+                }
             });
             // Remove Ingredient
             $("#remove-ingredient-btn").click(function () {
                 // Check if there are ingredients to remove
-                if (ingredientCount > 0) {
-                    $(`#ingredient-${ingredientCount}`).remove();
+                if (ingredientCount > 3) {
+                    console.log(ingredientCount)
+                    $(`#ingredient-${ingredientCount - 1}`).remove();
                     ingredientCount -= 1;
+                }
+                // hide the remove button if the ingredients are less or equal 3
+                if (ingredientCount <= 3) {
+                $("#remove-ingredient-btn").hide();
                 }
             });
             // Add Instruction
             const instructionList = $("#instruction-list");
-            let instructionCount = $("#instruction-list").data("initial-count") - 1;
+            let instructionCount = $("#instruction-list").data("initial-count");
             let stepCount = $("#steps").data("step-count") + 1;
             $("#add-instruction-btn").click(function () {
                 instructionCount += 1;
                 stepCount += 1;
-                const instructionEntry = `<div id="instruction-${instructionCount}">
+                const instructionEntry = `<div id="instruction-${instructionCount - 1}">
                                             <h6>Step ${stepCount}</h6>
-                                                <textarea class="form-control form-control-lg id="instructions-${instructionCount}-instruction"
-                                                name="instructions-${instructionCount}-instruction" required></textarea><br>
+                                                <textarea class="form-control form-control-lg
+                                                id="instructions-${instructionCount - 1}-instruction"
+                                                name="instructions-${instructionCount - 1}-instruction" required></textarea><br>
                                         </div>`;
                 instructionList.append(instructionEntry);
+                // show the remove button if the instructions are above 2
+                if (instructionCount > 2) {
+                    $("#remove-instruction-btn").show();
+                }
             });
             // Remove Instruction
             $("#remove-instruction-btn").click(function () {
                 // Check if there are instructions to remove
-                if (instructionCount > 0) {
-                    $(`#instruction-${instructionCount}`).remove();
+                if (instructionCount > 1) {
+                    $(`#instruction-${instructionCount - 1}`).remove();
                     instructionCount -= 1;
                     stepCount -= 1;
+                }
+                // hide the remove button if the instructions are less or equal 2
+                if (instructionCount <= 2) {
+                    $("#remove-instruction-btn").hide();
                 }
             });
         });
