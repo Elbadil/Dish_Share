@@ -4,7 +4,7 @@
     <form method="POST" action="" enctype="multipart/form-data">
         {{ form.hidden_tag() }}
         <fieldset class="form-group">
-            <legend class="border-bottom mb-4">Add A Recipe</legend>
+            <legend class="border-bottom mb-4">{{ legend }}</legend>
             <!-- Title -->
             <div class="form-group">
                 {{ form.title.label(class="form-control-label") }}
@@ -38,7 +38,14 @@
                 {{ form.ingredients.label(class="form-control-label") }}
                 <div id="ingredient-list" data-initial-count="{{ form.ingredients | length }}">
                     {% for ingredient in form.ingredients %}
-                        {{ ingredient['ingredient'](class="form-control form-control-lg") }}<br>
+                        <input class="form-control form-control-lg"
+                        id="ingredients-{{ loop.index0 }}-ingredient"
+                        name="ingredients-{{ loop.index0 }}-ingredient"
+                        required
+                        type="text"
+                        {% if ingredient.form.ingredient.data %}
+                            value="{{ ingredient.form.ingredient.data }}"
+                        {% endif %}><br>
                     {% endfor %}
                 </div>
             </div>
@@ -48,10 +55,14 @@
             <!-- Instructions -->
             <div class="form-group">
                 {{ form.instructions.label(class="form-control-label") }}
-                <div id="instruction-list" data-initial-count="{{ form.instructions | length }}">
+                <div id="instruction-list" data-initial-count="{{ form.instructions | length }}" >
                     {% for instruction in form.instructions %}
-                        <h6 id="steps" data-step-count="{{ loop.index|string }}" >Step {{ loop.index|string }}</h6>
-                        {{ instruction['instruction'](class="form-control form-control-lg") }}<br>
+                        <h6 id="steps-{{ loop.index0 + 1 }}">Step {{ loop.index0 + 1 }}</h6>
+                        <textarea class="form-control form-control-lg"
+                        id="instructions-{{ loop.index0 }}-instruction"
+                        name="instructions-{{ loop.index0 }}-instruction"
+                        required
+                        type="text">{% if instruction.form.instruction.data %}{{ instruction.form.instruction.data }}{% endif %}</textarea><br>
                     {% endfor %}
                 </div>
             </div>
@@ -86,46 +97,50 @@
             const ingredientList = $("#ingredient-list");
             let ingredientCount = initialIngredientCount;
             // Add Ingredient
+            if (ingredientCount > 2) {
+                $("#remove-ingredient-btn").show();
+            }
             $("#add-ingredient-btn").click(function () {
                 ingredientCount += 1;
-                let ingredientEntry = `<div id="ingredient-${ingredientCount - 1}">
-                                            <input class="form-control form-control-lg"
-                                            id="ingredients-${ingredientCount - 1}-ingredient"
-                                            name="ingredients-${ingredientCount - 1}-ingredient" required type="text" value><br>
-                                        </div>`;
+                let ingredientEntry = `<input class="form-control form-control-lg"
+                                        id="ingredients-${ingredientCount - 1}-ingredient"
+                                        name="ingredients-${ingredientCount - 1}-ingredient" required type="text" value><br>`;
                 ingredientList.append(ingredientEntry);
+                console.log(ingredientCount);
                 // show the remove button if the ingredients are above 3
-                if (ingredientCount > 3) {
+                if (ingredientCount > 2) {
                     $("#remove-ingredient-btn").show();
                 }
             });
             // Remove Ingredient
             $("#remove-ingredient-btn").click(function () {
                 // Check if there are ingredients to remove
-                if (ingredientCount > 3) {
-                    console.log(ingredientCount)
-                    $(`#ingredient-${ingredientCount - 1}`).remove();
+                if (ingredientCount > 2) {
+                    console.log(ingredientCount);
+                    $(`#ingredients-${ingredientCount - 1}-ingredient, #ingredients-${ingredientCount - 1}-ingredient + br`).remove();
                     ingredientCount -= 1;
                 }
                 // hide the remove button if the ingredients are less or equal 3
-                if (ingredientCount <= 3) {
+                if (ingredientCount <= 2) {
                 $("#remove-ingredient-btn").hide();
                 }
             });
             // Add Instruction
             const instructionList = $("#instruction-list");
             let instructionCount = $("#instruction-list").data("initial-count");
-            let stepCount = $("#steps").data("step-count") + 1;
+            let stepCount = $("#instruction-list").data("initial-count");
+            if (instructionCount > 2) {
+                $("#remove-instruction-btn").show();
+            }
             $("#add-instruction-btn").click(function () {
                 instructionCount += 1;
                 stepCount += 1;
-                const instructionEntry = `<div id="instruction-${instructionCount - 1}">
-                                            <h6>Step ${stepCount}</h6>
-                                                <textarea class="form-control form-control-lg
-                                                id="instructions-${instructionCount - 1}-instruction"
-                                                name="instructions-${instructionCount - 1}-instruction" required></textarea><br>
-                                        </div>`;
+                const instructionEntry = `<h6 id="steps-${stepCount}">Step ${stepCount}</h6>
+                                          <textarea class="form-control form-control-lg"
+                                          id="instructions-${instructionCount - 1}-instruction"
+                                          name="instructions-${instructionCount - 1}-instruction" required></textarea><br>`;
                 instructionList.append(instructionEntry);
+                console.log(stepCount);
                 // show the remove button if the instructions are above 2
                 if (instructionCount > 2) {
                     $("#remove-instruction-btn").show();
@@ -135,7 +150,9 @@
             $("#remove-instruction-btn").click(function () {
                 // Check if there are instructions to remove
                 if (instructionCount > 1) {
-                    $(`#instruction-${instructionCount - 1}`).remove();
+                    $(`#steps-${stepCount}`).remove()
+                    $(`#instructions-${instructionCount - 1}-instruction, #instructions-${instructionCount - 1}-instruction + br`).remove();
+                    console.log(stepCount);
                     instructionCount -= 1;
                     stepCount -= 1;
                 }

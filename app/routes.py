@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """Main routes for the web app"""
-from flask import render_template, url_for, flash, redirect, request
+from flask import render_template, url_for, flash, redirect, request, abort
 from app.forms import RegistrationForm, LoginForm, UpdateAccountForm, PostForm
 from flask_login import login_user, current_user, logout_user, login_required
 from app.models import User, Recipe, Ingredient, Instruction
@@ -108,9 +108,7 @@ def account():
 @login_required
 def new_recipe():
     """Adds new recipe by the user"""
-    form = PostForm()
-    ingredient_lmt = 2
-    instruction_lmt = 2
+    form = PostForm(min_entries=2)
     if form.validate_on_submit():
         recipe = Recipe(user_id=current_user.id, title=form.title.data, description=form.description.data)
         if form.picture.data:
@@ -127,14 +125,84 @@ def new_recipe():
         # Add Recipe Instructions
         step = 1
         for instruction in form.instructions:
-            new_instruction = Instruction(recipe_id=recipe.id, text=instruction.data['instruction'], step= step)
+            new_instruction = Instruction(recipe_id=recipe.id, text=instruction.data['instruction'], step=step)
             db.session.add(new_instruction)
             step += 1
         db.session.commit()
         flash('Your new Recipe has been posted!', 'success')
         return redirect(url_for('recipe_feed'))
     return render_template('new_recipe.html', form=form, title="New Recipe",
-                           instruction_lmt=instruction_lmt, ingredient_lmt=ingredient_lmt)
+                           legend='Add a Recipe')
+
+# recipes routes based on recipe id
+@app.route('/recipe/<recipe_id>', methods=['GET', 'POST'], strict_slashes=False)
+def recipe(recipe_id):
+    """Recipe page based on its id"""
+    recipe = Recipe.query.get_or_404(recipe_id)
+    return render_template('recipe.html', title=recipe.title, recipe=recipe)
+
+# recipes update routes based on recipe id
+@app.route('/recipe/<recipe_id>/update', methods=['GET', 'POST'], strict_slashes=False)
+@login_required
+def update_recipe(recipe_id):
+    """Updates a Recipe that matches the id given"""
+    recipe = Recipe.query.get_or_404(recipe_id)
+    if recipe.user != current_user:
+        abort(403)
+    form = PostForm()
+    if form.validate_on_submit():
+        recipe.title = form.title.data
+        recipe.description = form.description.data
+        recipe.ingredients = []
+        recipe.instructions = []
+        # Update Recipe Ingredients
+        order = 1
+        for ingredient in form.ingredients:
+            new_ingredient = Ingredient(recipe_id=recipe.id, name=ingredient.data['ingredient'], order=order)
+            db.session.add(new_ingredient)
+            order += 1
+        # Update Recipe Instructions
+        step = 1
+        for instruction in form.instructions:
+            new_instruction = Instruction(recipe_id=recipe.id, text=instruction.data['instruction'], step=step)
+            db.session.add(new_instruction)
+            step += 1
+        db.session.commit()
+        flash('Recipe has been updated successfully!', 'success')
+        return redirect(url_for('recipe', recipe_id=recipe.id))
+    elif request.method == 'GET':
+        form.title.data = recipe.title
+        form.description.data = recipe.description
+        form.ingredients.entries = []
+        form.instructions.entries = []
+        # Append new Ingredients entries based on existing data
+        for _ in range(len(recipe.ingredients)):
+            form.ingredients.append_entry()
+        # Fill data for existing Ingredients entries
+        for i, ingredient_entry in enumerate(form.ingredients.entries):
+            ingredient_entry.form.ingredient.data = sorted(recipe.ingredients, key=lambda x: x.order)[i].name
+        # Append new instructions entries based on existing data
+        for _ in range(len(recipe.instructions)):
+            form.instructions.append_entry()
+        # Fill data for existing instructions entries
+        for i, instruction_entry in enumerate(form.instructions.entries):
+            instruction_entry.form.instruction.data = sorted(recipe.instructions, key=lambda x: x.step)[i].text
+        form.picture.data = recipe.image_file
+    return render_template('new_recipe.html', title="Update Recipe", form=form,
+                           legend='Update Recipe')
+
+# Delete Recipes routes based on recipe id
+@app.route('/recipe/<recipe_id>/delete', methods=['GET', 'POST'], strict_slashes=False)
+@login_required
+def delete_recipe(recipe_id):
+    """Deletes a recipe that matches the id given"""
+    recipe = Recipe.query.get_or_404(recipe_id)
+    if recipe.user != current_user:
+        abort(403)
+    db.session.delete(recipe)
+    db.session.commit()
+    flash('Recipe has been successfully deleted!', 'success')
+    return redirect(url_for('recipe_feed'))
 
 
 if __name__ == "__main__":

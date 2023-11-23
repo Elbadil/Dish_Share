@@ -2,18 +2,23 @@
 {% block content %}
     {% for recipe in recipes | sort(attribute='created_at', reverse=True) %}
     <article class="media content-section">
+        <a href="#">
+            <img class="rounded-circle article-img" src="{{ url_for('static', filename='images/' + recipe.user.image_file) }}">
+        </a>
         <div class="media-body">
         <div class="article-metadata">
             <a class="mr-2" href="#">{{ recipe.user.username }}</a>
-            <small class="text-muted">{{ recipe.created_at }}</small>
+            <small class="text-muted">{{ recipe.created_at.strftime('%Y-%m-%d') }}</small>
         </div>
-            <h2><a class="article-title" href="#">{{ recipe.title }}</a></h2>
+            <h2><a class="article-title" href="{{ url_for('recipe', recipe_id=recipe.id) }}">{{ recipe.title }}</a></h2>
             <p class="article-content">{{ recipe.description }}</p>
+            <h6>Ingredients:</h6>
             <ul>
                 {% for ingredient in recipe.ingredients | sort(attribute='order') %}
                 <li>{{ ingredient.name }}</li>
                 {% endfor %}
             </ul>
+            <h6>Instructions:</h6>
             <ol>
                 {% for instruction in recipe.instructions | sort(attribute='step') %}
                 <li>{{ instruction.text }}</li>

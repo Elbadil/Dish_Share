@@ -77,7 +77,7 @@ class PostForm(FlaskForm):
     """Class for the Post Recipe Form"""
     title = StringField('Recipe Title', validators=[DataRequired()])
     description = TextAreaField('Description', validators=[DataRequired()])
-    ingredients = FieldList(FormField(Ingredients), min_entries=3)
+    ingredients = FieldList(FormField(Ingredients), min_entries=2)
     instructions = FieldList(FormField(Instructions), min_entries=2)
     picture = FileField('Recipe Photo (optional)', validators=[FileAllowed(['jpg', 'png'])])
     submit = SubmitField('Post Recipe')
