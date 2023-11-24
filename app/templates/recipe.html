@@ -17,13 +17,16 @@
         </div>
             <h2 class="article-title">{{ recipe.title }}</h2>
             <p class="article-content">{{ recipe.description }}</p>
-            <h6>Ingredients:</h6>
+            {% if recipe.image_file %}
+                <img class="rounded img-fluid mb-3" src="{{ url_for('static', filename='images/' + recipe.image_file) }}" >
+            {% endif %}
+            <h4>Ingredients:</h4>
             <ul>
                 {% for ingredient in recipe.ingredients | sort(attribute='order') %}
                 <li>{{ ingredient.name }}</li>
                 {% endfor %}
             </ul>
-            <h6>Instructions:</h6>
+            <h4>Instructions:</h4>
             <ol>
                 {% for instruction in recipe.instructions | sort(attribute='step') %}
                 <li>{{ instruction.text }}</li>

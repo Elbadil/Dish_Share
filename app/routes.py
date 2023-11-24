@@ -168,6 +168,9 @@ def update_recipe(recipe_id):
             new_instruction = Instruction(recipe_id=recipe.id, text=instruction.data['instruction'], step=step)
             db.session.add(new_instruction)
             step += 1
+        if form.picture.data:
+            picture_fn = save_picture(form.picture.data)
+            recipe.image_file = picture_fn
         db.session.commit()
         flash('Recipe has been updated successfully!', 'success')
         return redirect(url_for('recipe', recipe_id=recipe.id))
@@ -213,8 +216,9 @@ def user_recipes(username):
     user = User.query.filter_by(username=username).first_or_404()
     user_recipes = Recipe.query.filter_by(user_id=user.id).order_by(Recipe.created_at.desc())\
                    .paginate(page=page, per_page=6)
-    return render_template('user_recipes.html', user=user, title=f"{user.username} | Recipes",
+    return render_template('user_recipes.html', user=user, title=f"{user.username} Recipes",
                            recipes=user_recipes)
+
 
 if __name__ == "__main__":
     app.run(debug=True)
