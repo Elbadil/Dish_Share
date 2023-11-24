@@ -1,12 +1,12 @@
 {% extends "layout.html" %}
 {% block content %}
     <article class="media content-section">
-        <a href="#">
+        <a href="{{ url_for('user_recipes', username=recipe.user.username) }}">
             <img class="rounded-circle article-img" src="{{ url_for('static', filename='images/' + recipe.user.image_file) }}">
         </a>
         <div class="media-body">
         <div class="article-metadata">
-            <a class="mr-2" href="#">{{ recipe.user.username }}</a>
+            <a class="mr-2" href="{{ url_for('user_recipes', username=recipe.user.username) }}">{{ recipe.user.username }}</a>
             <small class="text-muted">{{ recipe.created_at.strftime('%Y-%m-%d') }}</small>
             {% if recipe.user == current_user %}
                 <div>

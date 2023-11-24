@@ -19,7 +19,8 @@ load_dotenv()
 def recipe_feed():
     """recipe feed page"""
     from app.models import Recipe
-    recipes = Recipe.query.all()
+    page = request.args.get('page', 1, type=int)
+    recipes = Recipe.query.order_by(Recipe.created_at.desc()).paginate(page=page, per_page=6)
     return render_template('feed.html', recipes=recipes, title="Recipe Feed")
 
 # Registration route
@@ -108,7 +109,7 @@ def account():
 @login_required
 def new_recipe():
     """Adds new recipe by the user"""
-    form = PostForm(min_entries=2)
+    form = PostForm()
     if form.validate_on_submit():
         recipe = Recipe(user_id=current_user.id, title=form.title.data, description=form.description.data)
         if form.picture.data:
@@ -204,6 +205,16 @@ def delete_recipe(recipe_id):
     flash('Recipe has been successfully deleted!', 'success')
     return redirect(url_for('recipe_feed'))
 
+# routes for users profile
+@app.route('/recipes/<string:username>', methods=['GET'], strict_slashes=False)
+def user_recipes(username):
+    """recipe feed page"""
+    page = request.args.get('page', 1, type=int)
+    user = User.query.filter_by(username=username).first_or_404()
+    user_recipes = Recipe.query.filter_by(user_id=user.id).order_by(Recipe.created_at.desc())\
+                   .paginate(page=page, per_page=6)
+    return render_template('user_recipes.html', user=user, title=f"{user.username} | Recipes",
+                           recipes=user_recipes)
 
 if __name__ == "__main__":
     app.run(debug=True)
