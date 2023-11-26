@@ -12,22 +12,11 @@
             <small class="text-muted">{{ recipe.created_at.strftime('%Y-%m-%d') }}</small>
         </div>
             <h2><a class="article-title" href="{{ url_for('recipe', recipe_id=recipe.id) }}">{{ recipe.title }}</a></h2>
-            <p class="article-content">{{ recipe.description }}</p>
+            <p class="article-content">{{ recipe.description }} <a href="{{ url_for('recipe', recipe_id=recipe.id) }}">Full Recipe</a>
+            </p>
             {% if recipe.image_file %}
                 <img class="rounded img-fluid mb-3" src="{{ url_for('static', filename='images/' + recipe.image_file) }}" >
             {% endif %}
-            <h4>Ingredients:</h4>
-            <ul>
-                {% for ingredient in recipe.ingredients | sort(attribute='order') %}
-                <li>{{ ingredient.name }}</li>
-                {% endfor %}
-            </ul>
-            <h4>Instructions:</h4>
-            <ol>
-                {% for instruction in recipe.instructions | sort(attribute='step') %}
-                <li>{{ instruction.text }}</li>
-                {% endfor %}
-            </ol>
         </div>
     </article>
     {% endfor %}

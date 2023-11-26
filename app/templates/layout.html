@@ -15,7 +15,7 @@
     <header class="site-header">
         <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
             <div class="container">
-                <a class="navbar-brand mr-4" href="/">Dish Share</a>
+                <a class="navbar-brand mr-4" href="{{ url_for('home') }}">Dish Share</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
                 </button>
@@ -23,17 +23,30 @@
                 <div class="navbar-nav mr-auto">
                     <!-- <a class="nav-item nav-link" href="/">Home</a> -->
                     <a class="nav-item nav-link" href="{{ url_for('recipe_feed') }}">Recipe Feed</a>
+                    <form method="POST" action="/">
+                        <input type="text" name="search_query" placeholder="Search for Recipes">
+                        <input type="submit" value="Search">
+                    </form>
                     </div>
                     <!-- Navbar Right Side -->
                     <div class="navbar-nav">
                         {% if current_user.is_authenticated %}
                         <!-- <img class="rounded-circle account-img" src="{{ image_file }}"> -->
-                        <a class="nav-item nav-link" href="{{ url_for('account') }}">{{ current_user.username }}</a>
                         <a class="nav-item nav-link" href="{{ url_for('new_recipe') }}">Add a Recipe</a>
+                        <a class="nav-item nav-link" href="{{ url_for('user_recipes', username=current_user.username) }} ">My Recipes</a>
                         <a class="nav-item nav-link" href="{{ url_for('logout') }}">Logout</a>
+                        <a href="{{ url_for('account') }}">
+                            <img id="pfp" class="rounded-circle ml-2" src="{{ url_for('static', filename='images/' + current_user.image_file )}}" width="40" height="40">
+                        </a>
+                        <!-- <div class="nav-item sub-menu-wrap">
+                            <div class="sub-menu">
+                                <a class="nav-item nav-link" href="{{ url_for('logout') }}">Logout</a>
+                                <a class="nav-item nav-link" href="{{ url_for('new_recipe') }}">Add a Recipe</a>
+                            </div>
+                        </div> -->
                         {% else %}
-                        <a class="nav-item nav-link" href="{{ url_for('login') }}">Login</a>
-                        <a class="nav-item nav-link" href="{{ url_for('register') }}">Register</a>
+                            <a class="nav-item nav-link" href="{{ url_for('login') }}">Login</a>
+                            <a class="nav-item nav-link" href="{{ url_for('register') }}">Register</a>
                         {% endif %}
                     </div>
                 </div>
@@ -56,7 +69,7 @@
             </div>
             <div class="col-md-4">
                 <div class="content-section">
-                    <h3>Our Sidebar</h3>
+                    <h3>Tending Right Now</h3>
                     <p class='text-muted'>You can put any information here you'd like.
                     <ul class="list-group">
                         <li class="list-group-item list-group-item-light">Latest Posts</li>

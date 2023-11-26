@@ -5,6 +5,7 @@ from app.forms import RegistrationForm, LoginForm, UpdateAccountForm, PostForm
 from flask_login import login_user, current_user, logout_user, login_required
 from app.models import User, Recipe, Ingredient, Instruction
 from app import app, db, bcrypt
+from urllib.parse import unquote
 from PIL import Image
 import secrets
 from dotenv import load_dotenv
@@ -13,8 +14,63 @@ import requests
 
 load_dotenv()
 
+# Spooncular API
+SPN_API = "https://api.spoonacular.com/recipes/complexSearch"
+API_KEY = os.getenv('API_KEY')
+
+# Home page route
+@app.route('/', methods=['GET', 'POST'], strict_slashes=False)
+def index():
+    """Search Recipes"""
+    if request.method == 'POST':
+        # If a form is submitted
+        query = request.form.get('search_query', '')
+        # Perform a search for recipes with the given query
+        recipes = search_recipes(query)
+        if recipes:
+            return render_template('search.html', title=query,
+                                   recipes=recipes['results'],
+                                   search_query=query)
+        else:
+            # Handle the case where no recipes are found
+            return render_template('search.html', title=query, recipes=[],
+                                   search_query=query)
+    # If it's a get request or no form is submitted
+    return redirect(url_for('home'))
+
+# Defining a function that searches for recipes based on query
+def search_recipes(query):
+    """Returns recipes based on a given query"""
+    params = {'apiKey': API_KEY,
+              'query': query}
+    req = requests.get(SPN_API, params=params)
+    if req.status_code == 200:
+        recipes = req.json()
+        return recipes
+    return []
+    
+# Home page route
+@app.route('/home', strict_slashes=False)
+def home():
+    """home page"""
+    params = {'apiKey': API_KEY}
+    req = requests.get(SPN_API, params=params)
+    recipes = req.json()
+    return render_template('home.html', title="Home", recipes=recipes)
+
+# External Recipes routes
+@app.route('/extern_recipes/<recipe_id>', strict_slashes=False)
+def extern_recipe(recipe_id):
+    """External Recipe page that matches the id given"""
+    recipe_url = f"https://api.spoonacular.com/recipes/{recipe_id}/information"
+    params = {'apiKey': API_KEY}
+    req = requests.get(recipe_url, params=params)
+    if req.status_code == 200:
+        recipe = req.json()
+        return render_template('extern_recipe.html', recipe=recipe, title=recipe['title'])
+    return "Recipe not found", 404
+
 # recipe feed route
-@app.route('/')
 @app.route('/recipe_feed', strict_slashes=False)
 def recipe_feed():
     """recipe feed page"""
@@ -136,7 +192,7 @@ def new_recipe():
                            legend='Add a Recipe')
 
 # recipes routes based on recipe id
-@app.route('/recipe/<recipe_id>', methods=['GET', 'POST'], strict_slashes=False)
+@app.route('/recipe/<recipe_id>', strict_slashes=False)
 def recipe(recipe_id):
     """Recipe page based on its id"""
     recipe = Recipe.query.get_or_404(recipe_id)
