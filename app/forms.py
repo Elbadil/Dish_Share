@@ -75,7 +75,7 @@ class Instructions(Form):
 
 class PostForm(FlaskForm):
     """Class for the Post Recipe Form"""
-    title = StringField('Recipe Title', validators=[DataRequired()])
+    title = StringField('Title', validators=[DataRequired()])
     description = TextAreaField('Description', validators=[DataRequired()])
     ingredients = FieldList(FormField(Ingredients), min_entries=2)
     instructions = FieldList(FormField(Instructions), min_entries=2)

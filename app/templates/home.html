@@ -1,6 +1,23 @@
 {% extends "layout.html" %}
 {% block content %}
-    {% for recipe in recipes %}
+    <section class="main-dish">
+        <a href="#"><img src="../static/images/spaghetti-chicken.jpg" alt="spaghetti-chicken" class="main-img"></a>
+        <a href="#" class="main-title"><h1>Effortless Dish for Instant Comfort</h1></a>
+        <p>Shredded chicken and spaghetti stirred into a mixture of melted cheese, green onion, tomatoes, red and green chile peppers, and creamy mushroom soup.
+            A Classic Chicken Spaghetti with a little bite.</p>
+    </section>
+    <aside class="trending-bar">
+        <h1>Trending Right Now</h1>
+        <!-- <div class="trending-recipes">
+            {% for recipe in first_four %}
+            <div class="recipe-pic">
+                <img class="" src="{{ recipe.image }}">
+            </div>
+            <div class="recipe-title">{{ recipe.title }}</div>
+            {% endfor %}
+        </div> -->
+    </aside>
+    <!-- {% for recipe in recipes %}
     <article class="media content-section">
         <div class="media-body">
             <h2><a class="article-title" href="{{ url_for('extern_recipe', recipe_id=recipe.id) }}">{{ recipe.title }}</a></h2>
@@ -9,5 +26,5 @@
             </a>
         </div>
     </article>
-    {% endfor %}
+    {% endfor %} -->
 {% endblock content %}

@@ -1,0 +1,196 @@
+.center {
+    position: absolute;
+    top: 42%;
+    left: 50%;
+    bottom: 0;
+    transform: translate(-50%, -50%);
+    width: 33%;
+    background: white;
+    /* border: 2px black solid; */
+    border-radius: 10px;
+}
+
+.center a {
+    text-decoration: none;
+}
+
+.center a:hover{
+    text-decoration: underline;
+}
+
+.center h1{
+    padding: 10px 0px;
+    border-bottom: 1px solid silver;
+}
+
+.center form {
+    padding: 20px 0px;
+    box-sizing: border-box;
+}
+
+.invalid-feedback {
+    color: red;
+    font-size: 14px;
+}
+
+.remember-check {
+    margin-bottom: 10px;
+}
+
+.remember-check label{
+    font-size: 17px;
+}
+
+.txt-field {
+    padding: 5px 0px;
+    margin-bottom: 10px;
+}
+
+.txt-field input {
+    width: 100%;
+    padding: 0 10px;
+    height: 50px;
+    font-size: 17px;
+    border-radius: 10px;
+}
+
+.txt-field textarea {
+    width: 100%;
+    max-width: 100%;
+    min-width: 100%;
+    min-height: 80px;
+    padding: 10px 10px;
+    height: 80px;;
+    font-size: 17px;
+    border-radius: 10px;
+}
+
+.txt-field label {
+    font-size: 20px;
+    /* font-weight: 600; */
+}
+
+.btn-post {
+    width: 100%;
+    cursor: pointer;
+    height: 55px;
+    border-radius: 10px;
+    padding: 10px 0px;
+    color: white;
+    background-color: seagreen;
+    font-size: 18px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+.center small a{
+    display: block;
+    text-align: center;
+    font-size: 16px;
+    margin-bottom: 30px;
+}
+
+.already {
+    margin: 10px 0px;
+}
+
+.alert-error {
+    font-size: 16px;
+    border-radius: 2px;
+    /* padding: 10px 9px; */
+    /* background-color:#EE204D; */
+    color:#EE204D;
+}
+
+.alert-success {
+    margin-top: 20px;
+    font-size: 14px;
+    border-radius: 2px;
+    padding: 10px 9px;
+    background-color: #3EB489;
+    color: white;
+}
+
+#ingredient-list input {
+    width: 100%;
+    padding: 0 10px;
+    margin: 8px 0px;
+    height: 50px;
+    font-size: 18px;
+    border-radius: 10px;
+}
+
+.add-btn {
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 16px;
+    padding: 8px 14px;
+    margin-bottom: 16px;
+    background: #D0F0C0;
+    color: black;
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+.add-btn:hover {
+    background: seagreen;
+    color: white;
+}
+
+.remove-btn {
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 16px;
+    padding: 8px 14px;
+    margin-bottom: 16px;
+    background: #FFA07A;
+    color: black;
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+.remove-btn:hover {
+    background: #EE204D;
+    color: white;
+}
+
+.line-bot {
+    margin-bottom: 10px;
+}
+
+.steps {
+    margin-top: 12px;
+    margin-bottom: 8px;
+}
+
+.add-picture {
+    padding: 5px 0px;
+    margin-bottom: 10px;
+}
+
+.add-picture label {
+    margin-bottom: 20px;
+    font-size: 20px;
+}
+
+.add-picture input {
+    width: 100%;
+    margin-top: 7px;
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+.post-recipe {
+    margin-top: 15px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 16px;
+    padding: 8px 14px;
+    margin-bottom: 16px;
+    background:#ADD8E6;
+    color: black;
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+.post-recipe:hover {
+    background:#004953;
+    color: white;
+}

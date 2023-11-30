@@ -1,45 +1,43 @@
 {% extends "layout.html" %}
 {% block content %}
-<div class="content-section">
-    <form method="POST" action="" enctype="multipart/form-data">
-        {{ form.hidden_tag() }}
-        <fieldset class="form-group">
-            <legend class="border-bottom mb-4">{{ legend }}</legend>
+    <div class="center">
+        <h1>{{ title }}</h1>
+        <form method="POST" action="" enctype="multipart/form-data">
+            {{ form.hidden_tag() }}
             <!-- Title -->
-            <div class="form-group">
-                {{ form.title.label(class="form-control-label") }}
+            <div class="txt-field">
+                {{ form.title.label }}
                 {% if form.title.errors %}
-                    {{ form.title(class="form-control form-control-lg is-invalid") }}
+                    {{ form.title }}
                     <div class="invalid-feedback">
                         {% for error in form.title.errors %}
                             <span>{{ error }}</span>
                         {% endfor %}
                     </div>
                 {% else %}
-                    {{ form.title(class="form-control form-control-lg") }}
+                    {{ form.title }}
                 {% endif %}
             </div>
             <!-- Descripton -->
-            <div class="form-group">
-                {{ form.description.label(class="form-control-label") }}
+            <div class="txt-field">
+                {{ form.description.label }}
                 {% if form.description.errors %}
-                    {{ form.description(class="form-control form-control-lg is-invalid") }}
+                    {{ form.description }}
                     <div class="invalid-feedback">
                     {% for error in form.description.errors %}
                             <span>{{ error }}</span>
                     {% endfor %}
                     </div>
                 {% else %}
-                    {{ form.description(class="form-control form-control-lg") }}
+                    {{ form.description }}
                 {% endif %}
-            </div><hr>
+            </div>
             <!-- Ingredients -->
-            <div class="form-group">
-                {{ form.ingredients.label(class="form-control-label") }}
+            <div class="txt-field">
+                {{ form.ingredients.label }}
                 <div id="ingredient-list" data-initial-count="{{ form.ingredients | length }}">
                     {% for ingredient in form.ingredients %}
-                        <input class="form-control form-control-lg"
-                        id="ingredients-{{ loop.index0 }}-ingredient"
+                        <input id="ingredients-{{ loop.index0 }}-ingredient"
                         name="ingredients-{{ loop.index0 }}-ingredient"
                         required
                         type="text"
@@ -49,15 +47,15 @@
                     {% endfor %}
                 </div>
             </div>
-            <button type="button" class="btn btn-outline-info" id="add-ingredient-btn">Add Ingredient</button>
-            <button type="button" class="btn btn-outline-danger" id="remove-ingredient-btn">Remove Ingredient</button>
-            <hr>
+            <button type="button" class="add-btn" id="add-ingredient-btn">Add Ingredient</button>
+            <button type="button" class="remove-btn" id="remove-ingredient-btn">Remove Ingredient</button>
+            <hr class="line-bot">
             <!-- Instructions -->
-            <div class="form-group">
+            <div class="txt-field">
                 {{ form.instructions.label(class="form-control-label") }}
                 <div id="instruction-list" data-initial-count="{{ form.instructions | length }}" >
                     {% for instruction in form.instructions %}
-                        <h6 id="steps-{{ loop.index0 + 1 }}">Step {{ loop.index0 + 1 }}</h6>
+                        <h4 class="steps" id="steps-{{ loop.index0 + 1 }}">Step {{ loop.index0 + 1 }}</h4>
                         <textarea class="form-control form-control-lg"
                         id="instructions-{{ loop.index0 }}-instruction"
                         name="instructions-{{ loop.index0 }}-instruction"
@@ -66,21 +64,21 @@
                     {% endfor %}
                 </div>
             </div>
-            <button type="button" class="btn btn-outline-info" id="add-instruction-btn">Add Instruction</button>
-            <button type="button" class="btn btn-outline-danger" id="remove-instruction-btn">Remove Instruction</button><hr>
-            <div class="form-group">
+            <button type="button" class="add-btn" id="add-instruction-btn">Add Instruction</button>
+            <button type="button" class="remove-btn" id="remove-instruction-btn">Remove Instruction</button>
+            <hr class="line-bot">
+            <div class="add-picture">
                 {{ form.picture.label() }}
-                {{ form.picture(class="form-control-file") }}
+                {{ form.picture }}
                 {% if form.picture.errors %}
                     {% for error in form.picture.errors %}
-                        <span class="text-danger">{{ error }}</span></br>
+                        <span class="invalid-feedback">{{ error }}</span></br>
                     {% endfor %}
                 {% endif %}
             </div>
-        </fieldset>
-        <div class="form-group">
-            {{ form.submit(class="btn btn-outline-success")}}
-        </div>
+            <div class="">
+                {{ form.submit(class="btn-post") }}
+            </div>
     </form>
     <style>
         #remove-ingredient-btn {
@@ -135,7 +133,7 @@
             $("#add-instruction-btn").click(function () {
                 instructionCount += 1;
                 stepCount += 1;
-                const instructionEntry = `<h6 id="steps-${stepCount}">Step ${stepCount}</h6>
+                const instructionEntry = `<h4 class="steps" id="steps-${stepCount}">Step ${stepCount}</h4>
                                           <textarea class="form-control form-control-lg"
                                           id="instructions-${instructionCount - 1}-instruction"
                                           name="instructions-${instructionCount - 1}-instruction" required></textarea><br>`;
