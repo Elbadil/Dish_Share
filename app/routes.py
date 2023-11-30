@@ -15,7 +15,7 @@ import requests
 load_dotenv()
 
 # Spooncular API
-SPN_API = "https://api.spoonacular.com/recipes/complexSearch"
+# SPN_API = "https://api.spoonacular.com/recipes/complexSearch"
 API_KEY = os.getenv('API_KEY')
 
 # Home page route
@@ -29,7 +29,7 @@ def index():
         recipes = search_recipes(query)
         if recipes:
             return render_template('search.html', title=query,
-                                   recipes=recipes['results'],
+                                   recipes=[],
                                    search_query=query)
         else:
             # Handle the case where no recipes are found
@@ -41,34 +41,44 @@ def index():
 # Defining a function that searches for recipes based on query
 def search_recipes(query):
     """Returns recipes based on a given query"""
-    params = {'apiKey': API_KEY,
-              'query': query}
-    req = requests.get(SPN_API, params=params)
-    if req.status_code == 200:
-        recipes = req.json()
-        return recipes
-    return []
+    # params = {'apiKey': API_KEY,
+    #           'query': query}
+    # req = requests.get(SPN_API, params=params)
+    # if req.status_code == 200:
+    #     recipes = req.json()
+    #     return recipes
+    # return []
     
 # Home page route
 @app.route('/home', strict_slashes=False)
 def home():
     """home page"""
-    params = {'apiKey': API_KEY}
-    req = requests.get(SPN_API, params=params)
-    recipes = req.json()
-    return render_template('home.html', title="Home", recipes=recipes)
+    # params = {'apiKey': API_KEY}
+    # req = requests.get(SPN_API, params=params)
+    # counter = 0
+    # first_four = []
+    # rest = []
+    # for recipe in req.json()['results']:
+    #     if counter < 4:
+    #         first_four.append(recipe)
+    #     else:
+    #         rest.append(recipe)
+    #     counter += 1
+
+    return render_template('home.html', title="Home", first_four=[],
+                           rest=[])
 
 # External Recipes routes
 @app.route('/extern_recipes/<recipe_id>', strict_slashes=False)
 def extern_recipe(recipe_id):
     """External Recipe page that matches the id given"""
-    recipe_url = f"https://api.spoonacular.com/recipes/{recipe_id}/information"
-    params = {'apiKey': API_KEY}
-    req = requests.get(recipe_url, params=params)
-    if req.status_code == 200:
-        recipe = req.json()
-        return render_template('extern_recipe.html', recipe=recipe, title=recipe['title'])
-    return "Recipe not found", 404
+    # recipe_url = f"https://api.spoonacular.com/recipes/{recipe_id}/information"
+    # params = {'apiKey': API_KEY}
+    # req = requests.get(recipe_url, params=params)
+    # if req.status_code == 200:
+    #     recipe = req.json()
+    #     return render_template('extern_recipe.html', recipe=recipe, title=recipe['title'])
+    # return "Recipe not found", 404
 
 # recipe feed route
 @app.route('/recipe_feed', strict_slashes=False)
@@ -76,7 +86,7 @@ def recipe_feed():
     """recipe feed page"""
     from app.models import Recipe
     page = request.args.get('page', 1, type=int)
-    recipes = Recipe.query.order_by(Recipe.created_at.desc()).paginate(page=page, per_page=6)
+    recipes = Recipe.query.order_by(Recipe.created_at.desc()).paginate(page=page, per_page=5)
     return render_template('feed.html', recipes=recipes, title="Recipe Feed")
 
 # Registration route
@@ -109,7 +119,7 @@ def login():
             next_page = request.args.get('next')
             return redirect(next_page) if next_page else redirect(url_for('recipe_feed'))
         else:
-            flash('Login Unsuccessful. Please check your email and password', 'danger')
+            flash('Login Unsuccessful. Please check your email and password', 'error')
     return render_template('login.html', form=form, title='Login')
 
 # Logout route
@@ -188,8 +198,7 @@ def new_recipe():
         db.session.commit()
         flash('Your new Recipe has been posted!', 'success')
         return redirect(url_for('recipe_feed'))
-    return render_template('new_recipe.html', form=form, title="New Recipe",
-                           legend='Add a Recipe')
+    return render_template('new_recipe.html', form=form, title="Add a Recipe")
 
 # recipes routes based on recipe id
 @app.route('/recipe/<recipe_id>', strict_slashes=False)
@@ -248,8 +257,7 @@ def update_recipe(recipe_id):
         for i, instruction_entry in enumerate(form.instructions.entries):
             instruction_entry.form.instruction.data = sorted(recipe.instructions, key=lambda x: x.step)[i].text
         form.picture.data = recipe.image_file
-    return render_template('new_recipe.html', title="Update Recipe", form=form,
-                           legend='Update Recipe')
+    return render_template('new_recipe.html', title="Update Recipe", form=form)
 
 # Delete Recipes routes based on recipe id
 @app.route('/recipe/<recipe_id>/delete', methods=['GET', 'POST'], strict_slashes=False)

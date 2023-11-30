@@ -1,0 +1,53 @@
+
+.center-media {
+    position: absolute;
+    top: 42%;
+    left: 50%;
+    bottom: 0;
+    transform: translate(-50%, -50%);
+    width: 35%;
+    background: white;
+    /* border: 2px black solid; */
+    border-radius: 10px;
+}
+
+.center-media form {
+    padding: 20px 0px;
+    box-sizing: border-box;
+}
+
+.field-account {
+    padding: 5px 20px;
+    margin-bottom: 10px;
+}
+
+.field-account legend {
+    font-size: 23px;
+    font-weight: 600;
+}
+
+.media {
+    display: flex;
+    flex-direction: column; /* Stack items on top of each other */
+    align-items: center; /* Center items horizontally */
+    justify-content: center; /* Center items vertically */
+    margin-bottom: 10px;
+    margin-top: 15px;
+}
+
+.media h2{
+    margin-top: 10px;
+}
+
+
+.rounded-circle {
+    border-radius: 50%;
+}
+
+.rounded-circle.account-img {
+    width: 40%;
+}
+
+.field-account {
+    border-radius: 10px;
+}

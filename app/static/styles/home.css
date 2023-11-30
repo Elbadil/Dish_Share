@@ -1,0 +1,71 @@
+
+section.main-dish {
+    float: left;
+    width: 65%;
+}
+
+section img.main-img {
+    width: 100%;
+    border-radius: 5px;
+    margin: 7px 0px;
+}
+
+section.main-dish a{
+    text-decoration: none;
+    color: black;
+    position: relative;
+}
+
+.main-dish h1::after {
+    content: '';
+    display: block;
+    width: 0;
+    height: 2px;
+    background-color: seagreen;
+    transition: width 0.3s ease;
+}
+
+.main-dish h1:hover::after {
+    width: 50%;
+}
+
+section.main-dish p {
+    font-family: montserrat;
+    font-size: 14px;
+    font-weight: 50;
+}
+
+aside.trending-bar {
+    border: 2px solid black;
+    float: right;
+    margin: 7px 0px;
+    width: 33%;
+}
+
+aside.trending-bar h1{
+    margin: 15px 0px;
+    display: flex;
+    justify-content: center;
+}
+
+.trending-recipes {
+    display: flex;
+    flex-direction: column;
+}
+
+.recipe-pic {
+    max-width: 30%;
+    height: auto;
+}
+
+.recipe-pic img {
+    margin-left: 13px;
+    width: 100%;
+    height: auto;
+}
+
+.recipe-title {
+    font-family: montserrat;
+    font-size: 12px;
+    margin-top: 8px; /* Adjust the margin as needed */
+}

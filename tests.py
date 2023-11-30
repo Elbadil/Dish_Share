@@ -20,7 +20,7 @@ import os
 # models.storage.delete(ouiam)
 # models.storage.save()
 
-SPN_API = "https://api.spoonacular.com/recipes/716426/information"
+SPN_API = "https://api.spoonacular.com/recipes/complexSearch"
 API_KEY = "ae39ae6304cc477887db49aeafb39abd"
 
 
@@ -28,5 +28,5 @@ API_KEY = "ae39ae6304cc477887db49aeafb39abd"
 apiKey = {'apiKey': API_KEY}
 req = requests.get(SPN_API, params=apiKey)
 req_json = req.json()
-for ingredient in req_json['extendedIngredients']:
-        print(ingredient.originalName)
+for ingredient in req_json['results']:
+        print(ingredient)
