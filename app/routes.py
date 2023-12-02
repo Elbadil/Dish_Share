@@ -279,7 +279,7 @@ def user_recipes(username):
     page = request.args.get('page', 1, type=int)
     user = User.query.filter_by(username=username).first_or_404()
     user_recipes = Recipe.query.filter_by(user_id=user.id).order_by(Recipe.created_at.desc())\
-                   .paginate(page=page, per_page=6)
+                   .paginate(page=page, per_page=5)
     return render_template('user_recipes.html', user=user, title=f"{user.username} Recipes",
                            recipes=user_recipes)
 

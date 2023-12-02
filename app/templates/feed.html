@@ -24,7 +24,7 @@
                 </div>
             </div>
             <div class="title-description">
-                <a class="article-title" href="{{ url_for('recipe', recipe_id=recipe.id) }}"><h1 class="main-dish">{{ recipe.title }}</h1></a>
+                <a class="article-title" href="{{ url_for('recipe', recipe_id=recipe.id) }}"><h2 class="main-dish">{{ recipe.title }}</h2></a>
                 <p class="article-content">{{ recipe.description }} <a class="full-link" href="{{ url_for('recipe', recipe_id=recipe.id) }}">Full Recipe</a>
                 </p>
                 {% if recipe.image_file %}
@@ -33,7 +33,6 @@
                 </a>
                 {% endif %}
             </div>
-            
         </article>
         {% endfor %}
         <!-- left_edge=1, right_edge=1, left_current=1, right_current=2 -->
