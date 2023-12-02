@@ -17,13 +17,15 @@
                     <img class="rounded-circle article-img" src="{{ url_for('static', filename='images/' + recipe.user.image_file) }}">
                 </a>
                 <div class="article-metadata">
-                    <a class="mr-2" href="{{ url_for('user_recipes', username=recipe.user.username) }}">{{ recipe.user.username }}</a><br>
-                    <small class="text-muted">{{ recipe.created_at.strftime('%Y-%m-%d') }}</small>
+                    <div class="name-date">
+                        <a class="mr-2" href="{{ url_for('user_recipes', username=recipe.user.username) }}">{{ recipe.user.username }}</a>
+                        <small class="text-muted">{{ recipe.created_at.strftime('%Y-%m-%d') }}</small>
+                    </div>
                 </div>
             </div>
-            <div class="">
+            <div class="title-description">
                 <a class="article-title" href="{{ url_for('recipe', recipe_id=recipe.id) }}"><h1 class="main-dish">{{ recipe.title }}</h1></a>
-                <p class="article-content">{{ recipe.description }} <a href="{{ url_for('recipe', recipe_id=recipe.id) }}">Full Recipe</a>
+                <p class="article-content">{{ recipe.description }} <a class="full-link" href="{{ url_for('recipe', recipe_id=recipe.id) }}">Full Recipe</a>
                 </p>
                 {% if recipe.image_file %}
                 <a href="{{ url_for('recipe', recipe_id=recipe.id) }}">
@@ -31,6 +33,7 @@
                 </a>
                 {% endif %}
             </div>
+            
         </article>
         {% endfor %}
         <!-- left_edge=1, right_edge=1, left_current=1, right_current=2 -->

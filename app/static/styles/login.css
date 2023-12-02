@@ -95,17 +95,17 @@
 }
 
 .alert-error {
-    font-size: 16px;
-    border-radius: 2px;
-    /* padding: 10px 9px; */
-    /* background-color:#EE204D; */
-    color:#EE204D;
+    font-size: 14px;
+    border-radius: 6px;
+    padding: 10px 9px;
+    background-color: #EE204D;
+    color: white;
 }
 
 .alert-success {
     margin-top: 20px;
     font-size: 14px;
-    border-radius: 2px;
+    border-radius: 6px;
     padding: 10px 9px;
     background-color: #3EB489;
     color: white;

@@ -2,13 +2,12 @@
 .feed-center {
     position: absolute;
     top: 9%;
-    left: 25%;
+    left: 27%;
     width: 43%;
-    /* transform: translate(-20%, 0%); */
-    bottom: 0;
 }
 
 .media.content-section {
+    display: block;
     padding-top: 10px;
     padding-left: 15px;
     padding-right: 15px;
@@ -19,33 +18,49 @@
 }
 
 .media.content-section a {
-    color: #0530ad;
+    /* color: #0530ad; */
     text-decoration: none;
 }
 
-.media.content-section a:hover {
-    text-decoration: underline;
-}
-
 .media-body {
+    margin-bottom: 5px;
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: flex-start;
 }
 
-.media-body a{
-    box-sizing: border-box;
+.title-description a, .name-date a {
+    color: #0530ad;
 }
 
+.title-description a:hover, .name-date a:hover {
+    text-decoration: underline;
+}
+
+
 .article-metadata {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     width: 100%;
-    margin-left: 10px; /* Adjust the margin as needed */
+    padding-left: 5px;
+    margin-left: 5px; 
     border-bottom: 2px solid black;
 }
 
+.name-date {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.delete-update {
+    margin-bottom: 6px;
+}
 
 .rounded-circle.article-img {
+    float: right;
     width: 10px;
     min-width: 70px;
 }
@@ -69,9 +84,61 @@
     margin-bottom: 16px;
     background: seagreen;
     color: white;
-
 }
 
 .pagination-container {
+    padding-top: 10px;
     padding-bottom: 30px;
+}
+
+.title-description p {
+    font-size: 15px;
+}
+
+.update-btn {
+    font-size: 14px;
+    margin-right: 5px;
+    background-color: #5F9EA0;
+    padding: 8px 10px;
+    border-radius: 10px;
+    color: white;
+}
+
+.delete-btn {
+    font-size: 14px;
+    margin-right: 10px;
+    background-color: #FF004F;
+    padding: 8px 10px;
+    border-radius: 10px;
+    color: white;
+}
+
+.full-link {
+    font-weight: 600;
+}
+
+.ing-inst h3 {
+    font-size: 20px;
+    margin-top: 13px;
+    margin-bottom: 4px;
+}
+
+.ing-inst h4 {
+    font-size: 17px;
+    margin-bottom: 3px;
+    padding-left: 20px;
+}
+
+.ing-inst ul {
+    padding-left: 40px;
+}
+
+.ing-inst ol {
+    list-style-type: none;
+    margin-bottom: 10px;
+}
+
+.ing-inst ol li {
+    padding-left: 20px;
+    margin-bottom: 10px;
 }

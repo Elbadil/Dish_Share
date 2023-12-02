@@ -1,41 +1,58 @@
 {% extends "layout.html" %}
 {% block content %}
-    <article class="media content-section">
-        <a href="{{ url_for('user_recipes', username=recipe.user.username) }}">
-            <img class="rounded-circle article-img" src="{{ url_for('static', filename='images/' + recipe.user.image_file) }}">
-        </a>
-        <div class="media-body">
-        <div class="article-metadata">
-            <a class="mr-2" href="{{ url_for('user_recipes', username=recipe.user.username) }}">{{ recipe.user.username }}</a>
-            <small class="text-muted">{{ recipe.created_at.strftime('%Y-%m-%d') }}</small>
-            {% if recipe.user == current_user %}
-                <div>
-                    <a href="{{ url_for('update_recipe', recipe_id=recipe.id )}}">Update</a>
-                    <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal">Delete</button>
+    <div class="feed-center">
+        <article class="media content-section">
+            <div class="media-body">
+                <a href="{{ url_for('user_recipes', username=recipe.user.username) }}">
+                    <img class="rounded-circle article-img" src="{{ url_for('static', filename='images/' + recipe.user.image_file) }}">
+                </a>
+                <div class="article-metadata">
+                    <div class="name-date">
+                        <a class="mr-2" href="{{ url_for('user_recipes', username=recipe.user.username) }}">{{ recipe.user.username }}</a>
+                        <small class="text-muted">{{ recipe.created_at.strftime('%Y-%m-%d') }}</small>
+                    </div>
+                    {% if recipe.user == current_user %}
+                        <div class="delete-update">
+                            <a class="update-btn" href="{{ url_for('update_recipe', recipe_id=recipe.id )}}">Update</a>
+                            <a class="delete-btn" href="{{ url_for('delete_recipe', recipe_id=recipe.id )}}">Delete</a>
+                        </div>
+                    {% endif %} 
                 </div>
-            {% endif %}
-        </div>
-            <h2 class="article-title">{{ recipe.title }}</h2>
-            <p class="article-content">{{ recipe.description }}</p>
-            {% if recipe.image_file %}
-                <img class="rounded img-fluid mb-3" src="{{ url_for('static', filename='images/' + recipe.image_file) }}" >
-            {% endif %}
-            <h4>Ingredients:</h4>
-            <ul>
-                {% for ingredient in recipe.ingredients | sort(attribute='order') %}
-                <li>{{ ingredient.name }}</li>
-                {% endfor %}
-            </ul>
-            <h4>Instructions:</h4>
-            <ol>
-                {% for instruction in recipe.instructions | sort(attribute='step') %}
-                <li>{{ instruction.text }}</li>
-                {% endfor %}
-            </ol>
-        </div>
-    </article>
+            </div>
+            <div class="title-description">
+                <!-- Recipe Title -->
+                <a class="article-title" href="{{ url_for('recipe', recipe_id=recipe.id) }}"><h1 class="main-dish">{{ recipe.title }}</h1></a>
+                <!-- Recipe description -->
+                <p class="article-content">{{ recipe.description }}
+                </p>
+                <!-- Recipe image -->
+                {% if recipe.image_file %}
+                <a href="{{ url_for('recipe', recipe_id=recipe.id) }}">
+                    <img class="feed-img" src="{{ url_for('static', filename='images/' + recipe.image_file) }}">
+                </a>
+                {% endif %}
+                <div class="ing-inst">
+                    <!-- Ingredients -->
+                    <h3>Ingredients</h3>
+                    <ul>
+                        {% for ingredient in recipe.ingredients %}
+                            <li>{{ ingredient.name }}</li>
+                        {% endfor %}
+                    </ul>
+                    <!-- Intrustions -->
+                    <h3>Instructions</h3>
+                    <ol>
+                        {% for instruction in recipe.instructions %}
+                        <h4>Step {{ loop.index0 + 1 }}</h4>
+                            <li>{{ instruction.text }}</li>
+                        {% endfor %}
+                    </ol>
+                </div>
+            </div>
+        </article>
+    </div>
     <!-- Modal -->
-    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <!-- <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -52,5 +69,5 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 {% endblock content %}
