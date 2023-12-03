@@ -15,7 +15,7 @@ import requests
 load_dotenv()
 
 # Spooncular API
-# SPN_API = "https://api.spoonacular.com/recipes/complexSearch"
+SPN_API = "https://api.spoonacular.com/recipes/complexSearch"
 API_KEY = os.getenv('API_KEY')
 
 # Home page route
@@ -53,32 +53,41 @@ def search_recipes(query):
 @app.route('/home', strict_slashes=False)
 def home():
     """home page"""
-    # params = {'apiKey': API_KEY}
-    # req = requests.get(SPN_API, params=params)
-    # counter = 0
-    # first_four = []
-    # rest = []
-    # for recipe in req.json()['results']:
-    #     if counter < 4:
-    #         first_four.append(recipe)
-    #     else:
-    #         rest.append(recipe)
-    #     counter += 1
+    params = {'apiKey': API_KEY}
+    req = requests.get(SPN_API, params=params)
+    counter = 0
+    first_four = []
+    second_three = []
+    third_three = []
+    for recipe in req.json()['results']:
+        if counter < 4:
+            first_four.append(recipe)
+        elif counter < 7:
+            second_three.append(recipe)
+        else:
+            third_three.append(recipe)
+        counter += 1
 
-    return render_template('home.html', title="Home", first_four=[],
-                           rest=[])
+    return render_template('home.html', title="Home", first_four=first_four,
+                           second_three=second_three, third_three=third_three)
+
+# Home dish page route
+@app.route('/recipes/Spaghetti-alla-Carbonara', strict_slashes=False)
+def main_dish():
+    """Route for the main dish information"""
+    return render_template('home_dish.html', title="Spaghetti alla Carbonara")
 
 # External Recipes routes
 @app.route('/extern_recipes/<recipe_id>', strict_slashes=False)
 def extern_recipe(recipe_id):
     """External Recipe page that matches the id given"""
-    # recipe_url = f"https://api.spoonacular.com/recipes/{recipe_id}/information"
-    # params = {'apiKey': API_KEY}
-    # req = requests.get(recipe_url, params=params)
-    # if req.status_code == 200:
-    #     recipe = req.json()
-    #     return render_template('extern_recipe.html', recipe=recipe, title=recipe['title'])
-    # return "Recipe not found", 404
+    recipe_url = f"https://api.spoonacular.com/recipes/{recipe_id}/information"
+    params = {'apiKey': API_KEY}
+    req = requests.get(recipe_url, params=params)
+    if req.status_code == 200:
+        recipe = req.json()
+        return render_template('extern_recipe.html', recipe=recipe, title=recipe['title'])
+    return "Recipe not found", 404
 
 # recipe feed route
 @app.route('/recipe_feed', strict_slashes=False)

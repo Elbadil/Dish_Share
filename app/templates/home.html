@@ -2,9 +2,9 @@
 {% block content %}
     <div class="main-section">
         <div class="main-dish-home">
-            <a href="#"><img src="{{ url_for('static', filename='images/spaghetti-chicken.jpg') }}" alt="spaghetti-chicken" class="main-img"></a>
-            <a href="#" class="main-title"><h2>Effortless Dish for Instant Comfort</h2></a>
-            <p><a href="#"><b>Spaghetti alla Carbonara</b></a> is a quintessential Roman pasta dish that 
+            <a href="{{ url_for('main_dish') }}"><img src="{{ url_for('static', filename='images/spaghetti-chicken.jpg') }}" alt="spaghetti-chicken" class="main-img"></a>
+            <a href="{{ url_for('main_dish') }}" class="main-title"><h2>Effortless Dish for Instant Comfort</h2></a>
+            <p><a href="{{ url_for('main_dish') }}"><b>Spaghetti alla Carbonara</b></a> is a quintessential Roman pasta dish that 
                 captures the essence of simplicity and flavor. 
                 The dish is characterized by al dente spaghetti 
                 noodles coated in a luscious sauce made with eggs, 
@@ -19,13 +19,46 @@
                             <img class="trending-img" src="{{ recipe.image }}">
                         </a>
                     </div>
-                        <a href="{{ url_for('extern_recipe', recipe_id=recipe.id) }}">
-                            <div class="recipe-title">{{ recipe.title }}</div>
-                        </a>
+                    <div class="recipe-title">
+                        <a href="{{ url_for('extern_recipe', recipe_id=recipe.id) }}">{{ recipe.title }}</a>
+                    </div>
                 </div>
             {% endfor %}
         </div>
     </div>
+    <hr>
+    <div class="explore-section">
+        <h1>Explore Recipes</h1>
+        <div class="explore-recipes">
+            {% for recipe in second_three %}
+                <div class="recipe-explore">
+                    <div class="recipe-explore-pics">
+                        <a href="{{ url_for('extern_recipe', recipe_id=recipe.id) }}">
+                            <img class="explore-img" src="{{ recipe.image }}">
+                        </a>
+                    </div>
+                    <div class="recipe-explore-title">
+                        <a href="{{ url_for('extern_recipe', recipe_id=recipe.id) }}">{{ recipe.title }}</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="explore-recipes">
+            {% for recipe in third_three %}
+                <div class="recipe-explore">
+                    <div class="recipe-explore-pics">
+                        <a href="{{ url_for('extern_recipe', recipe_id=recipe.id) }}">
+                            <img class="explore-img" src="{{ recipe.image }}">
+                        </a>
+                    </div>
+                    <div class="recipe-explore-title">
+                        <a href="{{ url_for('extern_recipe', recipe_id=recipe.id) }}">{{ recipe.title }}</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <!-- <h1>&nbsp;</h1> -->
     <!-- {% for recipe in recipes %}
     <article class="media content-section">
         <div class="media-body">

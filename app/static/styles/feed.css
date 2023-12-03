@@ -48,6 +48,10 @@
     text-decoration: underline;
 }
 
+.title-description h2 {
+    padding-bottom: 5px;
+}
+
 
 .article-metadata {
     display: flex;
