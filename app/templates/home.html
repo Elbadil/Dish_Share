@@ -30,7 +30,7 @@
     <div class="explore-section">
         <h1>Explore Recipes</h1>
         <div class="explore-recipes">
-            {% for recipe in second_three %}
+            {% for recipe in second_four %}
                 <div class="recipe-explore">
                     <div class="recipe-explore-pics">
                         <a href="{{ url_for('extern_recipe', recipe_id=recipe.id) }}">
@@ -44,7 +44,7 @@
             {% endfor %}
         </div>
         <div class="explore-recipes">
-            {% for recipe in third_three %}
+            {% for recipe in third_four %}
                 <div class="recipe-explore">
                     <div class="recipe-explore-pics">
                         <a href="{{ url_for('extern_recipe', recipe_id=recipe.id) }}">

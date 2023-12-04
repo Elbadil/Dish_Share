@@ -36,7 +36,7 @@ def index():
             return render_template('search.html', title=query, recipes=[],
                                    search_query=query)
     # If it's a get request or no form is submitted
-    return redirect(url_for('home'))
+    return render_template('index.html')
 
 # Defining a function that searches for recipes based on query
 def search_recipes(query):
@@ -53,23 +53,24 @@ def search_recipes(query):
 @app.route('/home', strict_slashes=False)
 def home():
     """home page"""
-    params = {'apiKey': API_KEY}
+    params = {'apiKey': API_KEY,
+              'number': 12}
     req = requests.get(SPN_API, params=params)
     counter = 0
     first_four = []
-    second_three = []
-    third_three = []
+    second_four = []
+    third_four = []
     for recipe in req.json()['results']:
         if counter < 4:
             first_four.append(recipe)
-        elif counter < 7:
-            second_three.append(recipe)
+        elif counter < 8:
+            second_four.append(recipe)
         else:
-            third_three.append(recipe)
+            third_four.append(recipe)
         counter += 1
 
     return render_template('home.html', title="Home", first_four=first_four,
-                           second_three=second_three, third_three=third_three)
+                           second_four=second_four, third_four=third_four)
 
 # Home dish page route
 @app.route('/recipes/Spaghetti-alla-Carbonara', strict_slashes=False)

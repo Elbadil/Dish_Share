@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dish Share</title>
+    <!-- <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/home.css') }}"> -->
+    <!-- <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/layout.css') }}"> -->
+    <!-- <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/login.css') }}"> -->
+    <!-- <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/account.css') }}"> -->
+    <!-- <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/feed.css') }}"> -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/index.css') }}">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <a class="logo" href="{{ url_for('home') }}">Dish Share</a>
+        </div>
+        <nav class="nav-bar">
+            <a class="active" href="{{ url_for('home') }}">Home</a>
+            <!-- <a href="{{ url_for('recipe_feed') }}">Recipe Feed</a>
+            <a href="{{ url_for('home') }}">About</a> -->
+            {% if current_user.is_authenticated %}
+                <a href="{{ url_for('account') }}">Account</a>
+                <a href="{{ url_for('new_recipe') }}">Add a Recipe</a>
+                <a href="{{ url_for('user_recipes', username=current_user.username) }}">My Recipes</a>
+                <a href="{{ url_for('logout') }}">Logout</a>
+            {% else %}
+                <a href="{{ url_for('login') }}">Sign In</a>
+                <a href="{{ url_for('register') }}">Register</a>
+            {% endif %}
+        </nav>
+    </header>
+    <div class="introduction">
+        <div class="landing-left">
+            <h1 class="first-title">Where Culinary Creativity</h1>
+            <h1 class="second-title">Finds Its Community.</h1>
+            <p>Welcome to Dish Share, the ultimate culinary hub where food enthusiasts unite!
+                Connect with like-minded individuals, explore diverse cuisines, and embark on a culinary journey like never before.
+            </p>
+            <div class="landing-buttons">
+                <form action="{{ url_for('home') }}" method="GET">
+                    <button type="submit" class="get-started">Explore a World of Tastes</button>
+                </form>
+                <form action="{{ url_for('new_recipe') }}" method="GET">
+                    <button type="submit" class="share-recipe">Inspire with Your Recipes</button>
+                </form>
+            </div>   
+        </div>
+        <div class="landing-right">
+            <img class="landing-img" src="{{ url_for('static', filename='/images/Intro-pic4.jpg')}}">
+        </div>
+        <!-- <img class="intro-image" src="{{ url_for('static', filename='images/intro-pic1.jpg')}}"> -->
+    </div>
+    <!-- <div>
+        hi
+    </div>
+    <h1>hi</h1> -->
+</body>
+</html>
