@@ -1,43 +1,45 @@
 {% extends "layout.html" %}
 {% block content %}
-    <div class="feed-center">
-        <h1>Recipes by {{ user.username }}</h1>
-        {% for recipe in recipes.items %}
-        <article class="media content-section">
-            <div class="media-body">
-                <a href="{{ url_for('user_recipes', username=recipe.user.username) }}">
-                    <img class="rounded-circle article-img" src="{{ url_for('static', filename='images/' + recipe.user.image_file) }}">
-                </a>
-                <div class="article-metadata">
-                    <div class="name-date">
-                        <a class="mr-2" href="{{ url_for('user_recipes', username=recipe.user.username) }}">{{ recipe.user.username }}</a>
-                        <small class="text-muted">{{ recipe.created_at.strftime('%Y-%m-%d') }}</small>
+    <div class="feed-center_all">
+        <div class="feed-center">
+            <h1>Recipes by {{ user.username }}</h1>
+            {% for recipe in recipes.items %}
+            <article class="media content-section">
+                <div class="media-body">
+                    <a href="{{ url_for('user_recipes', username=recipe.user.username) }}">
+                        <img class="rounded-circle article-img" src="{{ url_for('static', filename='images/' + recipe.user.image_file) }}">
+                    </a>
+                    <div class="article-metadata">
+                        <div class="name-date">
+                            <a class="mr-2" href="{{ url_for('user_recipes', username=recipe.user.username) }}">{{ recipe.user.username }}</a>
+                            <small class="text-muted">{{ recipe.created_at.strftime('%Y-%m-%d') }}</small>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="title-description">
-                <h2><a class="article-title" href="{{ url_for('recipe', recipe_id=recipe.id) }}">{{ recipe.title }}</a></h2>
-                <p class="article-content">{{ recipe.description }} <a href="{{ url_for('recipe', recipe_id=recipe.id) }}">Full Recipe</a>
-                </p>
-                {% if recipe.image_file %}
-                    <img class="feed-img" src="{{ url_for('static', filename='images/' + recipe.image_file) }}" >
-                {% endif %}
-            </div>
-        </article>
-        {% endfor %}
-        <!-- left_edge=1, right_edge=1, left_current=1, right_current=2 -->
-        <!-- Recipe Feed buttom Pages -->
-        <div class="pagination-container">
-            {% for page_num in recipes.iter_pages() %}
-                {% if page_num %}
-                    {% if recipes.page == page_num %}
-                        <a class="current-btn" href="{{ url_for('user_recipes',  username=user.username, page=page_num) }}">{{ page_num }}</a>
-                    {% else %}
-                        <a class="add-btn next" href="{{ url_for('user_recipes', username=user.username, page=page_num) }}">{{ page_num }}</a>
+                <div class="title-description">
+                    <h2><a class="article-title" href="{{ url_for('recipe', recipe_id=recipe.id) }}">{{ recipe.title }}</a></h2>
+                    <p class="article-content">{{ recipe.description }} <a href="{{ url_for('recipe', recipe_id=recipe.id) }}">Full Recipe</a>
+                    </p>
+                    {% if recipe.image_file %}
+                        <img class="feed-img" src="{{ url_for('static', filename='images/' + recipe.image_file) }}" >
                     {% endif %}
-                {% else %}
-                {% endif %}
+                </div>
+            </article>
             {% endfor %}
+            <!-- left_edge=1, right_edge=1, left_current=1, right_current=2 -->
+            <!-- Recipe Feed buttom Pages -->
+            <div class="pagination-container">
+                {% for page_num in recipes.iter_pages() %}
+                    {% if page_num %}
+                        {% if recipes.page == page_num %}
+                            <a class="current-btn" href="{{ url_for('user_recipes',  username=user.username, page=page_num) }}">{{ page_num }}</a>
+                        {% else %}
+                            <a class="add-btn next" href="{{ url_for('user_recipes', username=user.username, page=page_num) }}">{{ page_num }}</a>
+                        {% endif %}
+                    {% else %}
+                    {% endif %}
+                {% endfor %}
+            </div>
         </div>
     </div>
 {% endblock content %}

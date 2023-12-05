@@ -1,12 +1,15 @@
+
+.center-all {
+    flex: 1;
+    margin-top: 100px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 50px;
+}
 .center {
-    position: absolute;
-    top: 42%;
-    left: 50%;
-    bottom: 0;
-    transform: translate(-50%, -50%);
-    width: 33%;
-    background: white;
-    /* border: 2px black solid; */
+    width: 30%;
     border-radius: 10px;
 }
 
@@ -152,6 +155,10 @@
     color: white;
 }
 
+.buttons-add-dlt {
+    display: inline;
+}
+
 .line-bot {
     margin-bottom: 10px;
 }
@@ -193,4 +200,9 @@
 .post-recipe:hover {
     background:#004953;
     color: white;
+}
+
+.button-container {
+    display: flex;
+    gap: 10px;
 }

@@ -1,165 +1,172 @@
 {% extends "layout.html" %}
 {% block content %}
-    <div class="center">
-        <h1>{{ title }}</h1>
-        <form method="POST" action="" enctype="multipart/form-data">
-            {{ form.hidden_tag() }}
-            <!-- Title -->
-            <div class="txt-field">
-                {{ form.title.label }}
-                {% if form.title.errors %}
-                    {{ form.title }}
-                    <div class="invalid-feedback">
-                        {% for error in form.title.errors %}
-                            <span>{{ error }}</span>
+    <div class="center-all">
+        <div class="center">
+            <h1>{{ title }}</h1>
+            <form method="POST" action="" enctype="multipart/form-data">
+                {{ form.hidden_tag() }}
+                <!-- Title -->
+                <div class="txt-field">
+                    {{ form.title.label }}
+                    {% if form.title.errors %}
+                        {{ form.title }}
+                        <div class="invalid-feedback">
+                            {% for error in form.title.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.title }}
+                    {% endif %}
+                </div>
+                <!-- Descripton -->
+                <div class="txt-field">
+                    {{ form.description.label }}
+                    {% if form.description.errors %}
+                        {{ form.description }}
+                        <div class="invalid-feedback">
+                        {% for error in form.description.errors %}
+                                <span>{{ error }}</span>
+                        {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.description }}
+                    {% endif %}
+                </div>
+                <!-- Ingredients -->
+                <div class="txt-field">
+                    {{ form.ingredients.label }}
+                    <div id="ingredient-list" data-initial-count="{{ form.ingredients | length }}">
+                        {% for ingredient in form.ingredients %}
+                            <input id="ingredients-{{ loop.index0 }}-ingredient"
+                            name="ingredients-{{ loop.index0 }}-ingredient"
+                            required
+                            type="text"
+                            {% if ingredient.form.ingredient.data %}
+                                value="{{ ingredient.form.ingredient.data }}"
+                            {% endif %}><br>
                         {% endfor %}
                     </div>
-                {% else %}
-                    {{ form.title }}
-                {% endif %}
-            </div>
-            <!-- Descripton -->
-            <div class="txt-field">
-                {{ form.description.label }}
-                {% if form.description.errors %}
-                    {{ form.description }}
-                    <div class="invalid-feedback">
-                    {% for error in form.description.errors %}
-                            <span>{{ error }}</span>
-                    {% endfor %}
+                </div>
+                <div class="button-container">
+                    <button type="button" class="add-btn" id="add-ingredient-btn">Add Ingredient</button>
+                    <button type="button" class="remove-btn" id="remove-ingredient-btn">Remove Ingredient</button>
+                </div>
+                <hr class="line-bot">
+                <!-- Instructions -->
+                <div class="txt-field">
+                    {{ form.instructions.label(class="form-control-label") }}
+                    <div id="instruction-list" data-initial-count="{{ form.instructions | length }}" >
+                        {% for instruction in form.instructions %}
+                            <h4 class="steps" id="steps-{{ loop.index0 + 1 }}">Step {{ loop.index0 + 1 }}</h4>
+                            <textarea class="form-control form-control-lg"
+                            id="instructions-{{ loop.index0 }}-instruction"
+                            name="instructions-{{ loop.index0 }}-instruction"
+                            required
+                            type="text">{% if instruction.form.instruction.data %}{{ instruction.form.instruction.data }}{% endif %}</textarea><br>
+                        {% endfor %}
                     </div>
-                {% else %}
-                    {{ form.description }}
-                {% endif %}
-            </div>
-            <!-- Ingredients -->
-            <div class="txt-field">
-                {{ form.ingredients.label }}
-                <div id="ingredient-list" data-initial-count="{{ form.ingredients | length }}">
-                    {% for ingredient in form.ingredients %}
-                        <input id="ingredients-{{ loop.index0 }}-ingredient"
-                        name="ingredients-{{ loop.index0 }}-ingredient"
-                        required
-                        type="text"
-                        {% if ingredient.form.ingredient.data %}
-                            value="{{ ingredient.form.ingredient.data }}"
-                        {% endif %}><br>
-                    {% endfor %}
                 </div>
-            </div>
-            <button type="button" class="add-btn" id="add-ingredient-btn">Add Ingredient</button>
-            <button type="button" class="remove-btn" id="remove-ingredient-btn">Remove Ingredient</button>
-            <hr class="line-bot">
-            <!-- Instructions -->
-            <div class="txt-field">
-                {{ form.instructions.label(class="form-control-label") }}
-                <div id="instruction-list" data-initial-count="{{ form.instructions | length }}" >
-                    {% for instruction in form.instructions %}
-                        <h4 class="steps" id="steps-{{ loop.index0 + 1 }}">Step {{ loop.index0 + 1 }}</h4>
-                        <textarea class="form-control form-control-lg"
-                        id="instructions-{{ loop.index0 }}-instruction"
-                        name="instructions-{{ loop.index0 }}-instruction"
-                        required
-                        type="text">{% if instruction.form.instruction.data %}{{ instruction.form.instruction.data }}{% endif %}</textarea><br>
-                    {% endfor %}
+                <div class="button-container">
+                    <button type="button" class="add-btn" id="add-instruction-btn">Add Instruction</button>
+                    <button type="button" class="remove-btn" id="remove-instruction-btn">Remove Instruction</button>
+                </div>    
+                <hr class="line-bot">
+                <div class="add-picture">
+                    {{ form.picture.label() }}
+                    {{ form.picture }}
+                    {% if form.picture.errors %}
+                        {% for error in form.picture.errors %}
+                            <span class="invalid-feedback">{{ error }}</span></br>
+                        {% endfor %}
+                    {% endif %}
                 </div>
-            </div>
-            <button type="button" class="add-btn" id="add-instruction-btn">Add Instruction</button>
-            <button type="button" class="remove-btn" id="remove-instruction-btn">Remove Instruction</button>
-            <hr class="line-bot">
-            <div class="add-picture">
-                {{ form.picture.label() }}
-                {{ form.picture }}
-                {% if form.picture.errors %}
-                    {% for error in form.picture.errors %}
-                        <span class="invalid-feedback">{{ error }}</span></br>
-                    {% endfor %}
-                {% endif %}
-            </div>
-            <div class="">
-                {{ form.submit(class="btn-post") }}
-            </div>
-    </form>
-    <style>
-        #remove-ingredient-btn {
-            display: none;
-        }
-        #remove-instruction-btn {
-            display: none;
-        }
-    </style>
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            const initialIngredientCount = $("#ingredient-list").data("initial-count");
-            const ingredientList = $("#ingredient-list");
-            let ingredientCount = initialIngredientCount;
-            // Add Ingredient
-            if (ingredientCount > 2) {
-                $("#remove-ingredient-btn").show();
+                <div class="">
+                    {{ form.submit(class="btn-post") }}
+                </div>
+            </form>
+        </div>
+    </div> 
+        <style>
+            #remove-ingredient-btn {
+                display: none;
             }
-            $("#add-ingredient-btn").click(function () {
-                ingredientCount += 1;
-                let ingredientEntry = `<input class="form-control form-control-lg"
-                                        id="ingredients-${ingredientCount - 1}-ingredient"
-                                        name="ingredients-${ingredientCount - 1}-ingredient" required type="text" value><br>`;
-                ingredientList.append(ingredientEntry);
-                console.log(ingredientCount);
-                // show the remove button if the ingredients are above 3
+            #remove-instruction-btn {
+                display: none;
+            }
+        </style>
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                const initialIngredientCount = $("#ingredient-list").data("initial-count");
+                const ingredientList = $("#ingredient-list");
+                let ingredientCount = initialIngredientCount;
+                // Add Ingredient
                 if (ingredientCount > 2) {
                     $("#remove-ingredient-btn").show();
                 }
-            });
-            // Remove Ingredient
-            $("#remove-ingredient-btn").click(function () {
-                // Check if there are ingredients to remove
-                if (ingredientCount > 2) {
+                $("#add-ingredient-btn").click(function () {
+                    ingredientCount += 1;
+                    let ingredientEntry = `<input class="form-control form-control-lg"
+                                            id="ingredients-${ingredientCount - 1}-ingredient"
+                                            name="ingredients-${ingredientCount - 1}-ingredient" required type="text" value><br>`;
+                    ingredientList.append(ingredientEntry);
                     console.log(ingredientCount);
-                    $(`#ingredients-${ingredientCount - 1}-ingredient, #ingredients-${ingredientCount - 1}-ingredient + br`).remove();
-                    ingredientCount -= 1;
-                }
-                // hide the remove button if the ingredients are less or equal 3
-                if (ingredientCount <= 2) {
-                $("#remove-ingredient-btn").hide();
-                }
-            });
-            // Add Instruction
-            const instructionList = $("#instruction-list");
-            let instructionCount = $("#instruction-list").data("initial-count");
-            let stepCount = $("#instruction-list").data("initial-count");
-            if (instructionCount > 2) {
-                $("#remove-instruction-btn").show();
-            }
-            $("#add-instruction-btn").click(function () {
-                instructionCount += 1;
-                stepCount += 1;
-                const instructionEntry = `<h4 class="steps" id="steps-${stepCount}">Step ${stepCount}</h4>
-                                          <textarea class="form-control form-control-lg"
-                                          id="instructions-${instructionCount - 1}-instruction"
-                                          name="instructions-${instructionCount - 1}-instruction" required></textarea><br>`;
-                instructionList.append(instructionEntry);
-                console.log(stepCount);
-                // show the remove button if the instructions are above 2
+                    // show the remove button if the ingredients are above 3
+                    if (ingredientCount > 2) {
+                        $("#remove-ingredient-btn").show();
+                    }
+                });
+                // Remove Ingredient
+                $("#remove-ingredient-btn").click(function () {
+                    // Check if there are ingredients to remove
+                    if (ingredientCount > 2) {
+                        console.log(ingredientCount);
+                        $(`#ingredients-${ingredientCount - 1}-ingredient, #ingredients-${ingredientCount - 1}-ingredient + br`).remove();
+                        ingredientCount -= 1;
+                    }
+                    // hide the remove button if the ingredients are less or equal 3
+                    if (ingredientCount <= 2) {
+                    $("#remove-ingredient-btn").hide();
+                    }
+                });
+                // Add Instruction
+                const instructionList = $("#instruction-list");
+                let instructionCount = $("#instruction-list").data("initial-count");
+                let stepCount = $("#instruction-list").data("initial-count");
                 if (instructionCount > 2) {
                     $("#remove-instruction-btn").show();
                 }
-            });
-            // Remove Instruction
-            $("#remove-instruction-btn").click(function () {
-                // Check if there are instructions to remove
-                if (instructionCount > 1) {
-                    $(`#steps-${stepCount}`).remove()
-                    $(`#instructions-${instructionCount - 1}-instruction, #instructions-${instructionCount - 1}-instruction + br`).remove();
+                $("#add-instruction-btn").click(function () {
+                    instructionCount += 1;
+                    stepCount += 1;
+                    const instructionEntry = `<h4 class="steps" id="steps-${stepCount}">Step ${stepCount}</h4>
+                                            <textarea class="form-control form-control-lg"
+                                            id="instructions-${instructionCount - 1}-instruction"
+                                            name="instructions-${instructionCount - 1}-instruction" required></textarea><br>`;
+                    instructionList.append(instructionEntry);
                     console.log(stepCount);
-                    instructionCount -= 1;
-                    stepCount -= 1;
-                }
-                // hide the remove button if the instructions are less or equal 2
-                if (instructionCount <= 2) {
-                    $("#remove-instruction-btn").hide();
-                }
+                    // show the remove button if the instructions are above 2
+                    if (instructionCount > 2) {
+                        $("#remove-instruction-btn").show();
+                    }
+                });
+                // Remove Instruction
+                $("#remove-instruction-btn").click(function () {
+                    // Check if there are instructions to remove
+                    if (instructionCount > 1) {
+                        $(`#steps-${stepCount}`).remove()
+                        $(`#instructions-${instructionCount - 1}-instruction, #instructions-${instructionCount - 1}-instruction + br`).remove();
+                        console.log(stepCount);
+                        instructionCount -= 1;
+                        stepCount -= 1;
+                    }
+                    // hide the remove button if the instructions are less or equal 2
+                    if (instructionCount <= 2) {
+                        $("#remove-instruction-btn").hide();
+                    }
+                });
             });
-        });
-    </script>
-</div>
+        </script>
+
 {% endblock content %}

@@ -1,34 +1,36 @@
 {% extends "layout.html" %}
 {% block content %}
-    <div class="feed-center">
-        <article class="media content-section">
-            <div class="title-description">
-                <!-- Recipe Title -->
-                <h2 class="article-title">{{ recipe.title }}</h2>
-                <!-- Recipe description -->
-                <p class="article-content">{{ recipe.summary | safe }}</p>
-                <!-- Recipe image -->
-                {% if recipe.image %}
-                    <img class="feed-img" src="{{ recipe.image }}" >
-                {% endif %}
-                <div class="ing-inst">
-                    <!-- Ingredients -->
-                    <h3>Ingredients:</h3>
-                    <ul>
-                        {% for ingredient in recipe.extendedIngredients %}
-                        <li>{{ ingredient.original }}</li>
-                        {% endfor %}
-                    </ul>
-                    <!-- Intrustions -->
-                    <h3>Instructions:</h3>
-                    <ol>
-                        {% for instruction in recipe.analyzedInstructions[0].steps %}
-                        <h4>Step {{ loop.index0 + 1 }}</h4>
-                            <li>{{ instruction.step }}</li>
-                        {% endfor %}
-                    </ol>
+    <div class="feed-center_all">
+        <div class="feed-center">
+            <article class="media content-section">
+                <div class="title-description">
+                    <!-- Recipe Title -->
+                    <h2 class="article-title">{{ recipe.title }}</h2>
+                    <!-- Recipe description -->
+                    <p class="article-content">{{ recipe.summary | safe }}</p>
+                    <!-- Recipe image -->
+                    {% if recipe.image %}
+                        <img class="feed-img" src="{{ recipe.image }}" >
+                    {% endif %}
+                    <div class="ing-inst">
+                        <!-- Ingredients -->
+                        <h3>Ingredients:</h3>
+                        <ul>
+                            {% for ingredient in recipe.extendedIngredients %}
+                            <li>{{ ingredient.original }}</li>
+                            {% endfor %}
+                        </ul>
+                        <!-- Intrustions -->
+                        <h3>Instructions:</h3>
+                        <ol>
+                            {% for instruction in recipe.analyzedInstructions[0].steps %}
+                            <h4>Step {{ loop.index0 + 1 }}</h4>
+                                <li>{{ instruction.step }}</li>
+                            {% endfor %}
+                        </ol>
+                    </div>
                 </div>
-            </div>
-        </article>
+            </article>
+        </div>
     </div>
 {% endblock content %}

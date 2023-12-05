@@ -1,57 +1,60 @@
 {% extends "layout.html" %}
-{% block content %}        
-    <div class="center">
-        {% with messages = get_flashed_messages(with_categories=true) %}
-            {% if messages %}
-                {% for category, message in messages %}
-                    <div class="alert-{{ category }}">
-                        {{ message }}
-                    </div>
-                {% endfor %}
-            {% endif %}
-        {% endwith %}
-        <h1>Login</h1>
-        <form method="POST" action="">
-            {{ form.hidden_tag() }}
-            <div class="txt-field">
-                {{ form.email.label }}
-                {% if form.email.errors %}
-                    {{ form.email }}
-                    <div class="invalid-feedback">
-                    {% for error in form.email.errors %}
-                            <span>{{ error }}</span>
+{% block content %}
+    <div class="center-all">    
+        <div class="center">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert-{{ category }}">
+                            {{ message }}
+                        </div>
                     {% endfor %}
-                    </div>
-                {% else %}
-                    {{ form.email }}
                 {% endif %}
-            </div>
-            <div class="txt-field">
-                {{ form.password.label }}
-                {% if form.password.errors %}
-                    {{ form.password }}
-                    <div class="invalid-feedback">
-                    {% for error in form.password.errors %}
-                            <span>{{ error }}</span>
-                    {% endfor %}
-                    </div>
-                {% else %}
-                    {{ form.password }}
-                {% endif %}
-            </div>
-            <div class="remember-check">
-                {{ form.remember }}
-                {{ form.remember.label }}
-            </div>
-            <div class="">
-                {{ form.submit(class="btn-post") }}
-            </div>
-            <small>
-                <a href="#">Forgotten Password?</a>
-            </small>
-            <div>
-                Don't have An Account? <a class="ml-2" href="{{ url_for('register') }}">Sign Up Now</a>
-            </div>
-        </form>
+            {% endwith %}
+            <h1>Login</h1>
+            <!-- <div> -->
+            <form method="POST" action="">
+                {{ form.hidden_tag() }}
+                <div class="txt-field">
+                    {{ form.email.label }}
+                    {% if form.email.errors %}
+                        {{ form.email }}
+                        <div class="invalid-feedback">
+                        {% for error in form.email.errors %}
+                                <span>{{ error }}</span>
+                        {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.email }}
+                    {% endif %}
+                </div>
+                <div class="txt-field">
+                    {{ form.password.label }}
+                    {% if form.password.errors %}
+                        {{ form.password }}
+                        <div class="invalid-feedback">
+                        {% for error in form.password.errors %}
+                                <span>{{ error }}</span>
+                        {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.password }}
+                    {% endif %}
+                </div>
+                <div class="remember-check">
+                    {{ form.remember }}
+                    {{ form.remember.label }}
+                </div>
+                <div class="">
+                    {{ form.submit(class="btn-post") }}
+                </div>
+                <small>
+                    <a href="#">Forgotten Password?</a>
+                </small>
+                <div>
+                    Don't have An Account? <a class="ml-2" href="{{ url_for('register') }}">Sign Up Now</a>
+                </div>
+            </form>
+        </div>
     </div>
 {% endblock content %}

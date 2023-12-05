@@ -7,13 +7,17 @@
     font-family: 'Poppins', sans-serif;
 }
 
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
 body {
-    height: 100vh;
-    min-height: 100vh;
-    padding-top: 70px;
-    margin-left: 120px;
-    margin-right: 120px;
-    /* background-color: #8FBC8B; */
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+    margin: 0;
 }
 
 header {

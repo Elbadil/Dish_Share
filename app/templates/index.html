@@ -4,11 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dish Share</title>
-    <!-- <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/home.css') }}"> -->
-    <!-- <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/layout.css') }}"> -->
-    <!-- <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/login.css') }}"> -->
-    <!-- <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/account.css') }}"> -->
-    <!-- <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/feed.css') }}"> -->
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/index.css') }}">
 </head>
 <body>
@@ -50,11 +45,46 @@
         <div class="landing-right">
             <img class="landing-img" src="{{ url_for('static', filename='/images/Intro-pic4.jpg')}}">
         </div>
-        <!-- <img class="intro-image" src="{{ url_for('static', filename='images/intro-pic1.jpg')}}"> -->
     </div>
-    <!-- <div>
-        hi
+    <div class="services">
+        <div class="service">
+            <div class="service-left">
+                <img class="service-img" src="{{ url_for('static', filename='images/service-1.jpg')}}">
+            </div>
+            <div class="service-right">
+                <h1>Discover Unique Recipes:</h1>
+                <p>Dive into a treasure trove of culinary creativity! 
+                    Dish Share offers a vast collection of diverse recipes 
+                    to inspire your next kitchen adventure. 
+                    From international delights to homegrown favorites, 
+                    explore a world of flavors right at your fingertips.</p>
+            </div>
+        </div>
+        <div class="service">
+            <div class="service-left-2">
+                <h1>Share Your Culinary Masterpieces:</h1>
+                <p>Your kitchen, your rules! Share your favorite recipes with the Dish Share 
+                    community and let your culinary creativity shine. 
+                    Whether you're a seasoned chef or a passionate home cook, 
+                    our platform is the perfect canvas to showcase your gastronomic delights.</p>
+            </div>
+            <div class="service-right-2">
+                <img class="service-img" src="{{ url_for('static', filename='images/service-2.jpg')}}">
+            </div>
+        </div>
     </div>
-    <h1>hi</h1> -->
+    <footer>
+        <div>
+            <small>©2023 Dish Share. All rights reserved | socials</small>
+        </div>
+        <div>
+            <ul class="socials">
+                <li><a href="https://github.com/Elbadil"><img class="socials-logo" src="{{ url_for('static', filename='images/github-logo.png')}}" alt="github"></a></li>
+                <li><a href="https://twitter.com/Adil_ElBali"><img class="socials-logo-x" src="{{ url_for('static', filename='images/x-logo.png')}}" alt="twitter"></a></li>
+                <li><a href="mailto:elbaliadil@gmail.com"><img class="socials-logo" src="{{ url_for('static', filename='images/gmail-logo.png')}}" alt="gmail"></a></li>
+                <li><a href="https://www.linkedin.com/in/adil-el-bali/"><img class="socials-logo" src="{{ url_for('static', filename='images/link-logo.png')}}" alt="linkedin"></a></li>
+            </ul>
+        </div>
+    </footer>
 </body>
 </html>

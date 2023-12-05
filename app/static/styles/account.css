@@ -1,10 +1,12 @@
+.center-media_all {
+    margin-top: 90px;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 130px;
+}
 
 .center-media {
-    position: absolute;
-    top: 42%;
-    left: 50%;
-    bottom: 0;
-    transform: translate(-50%, -50%);
     width: 35%;
     background: white;
     /* border: 2px black solid; */

@@ -15,93 +15,42 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/feed.css') }}">
   </head>
   <body>
-    <header>
-        <div class="header-content">
-            <a class="logo" href="{{ url_for('index') }}">Dish Share</a>
-            <form method="POST" action="/" class="search-bar">
-                <input type="text" name="search_query" placeholder="Search for Recipes">
-                <button type="submit"><img src="{{ url_for('static', filename='images/search-logo.png') }}"></button>
-            </form>
-        </div>
-        <nav class="nav-bar">
-            <a class="active" href="{{ url_for('home') }}">Home</a>
-            <a href="{{ url_for('recipe_feed') }}">Recipe Feed</a>
-            <a href="{{ url_for('home') }}">About</a>
-            {% if current_user.is_authenticated %}
-                <a href="{{ url_for('account') }}">Account</a>
-                <a href="{{ url_for('new_recipe') }}">Add a Recipe</a>
-                <a href="{{ url_for('user_recipes', username=current_user.username) }}">My Recipes</a>
-                <a href="{{ url_for('logout') }}">Logout</a>
-            {% else %}
-                <a href="{{ url_for('login') }}">Sign In</a>
-                <a href="{{ url_for('register') }}">Register</a>
-            {% endif %}
-        </nav>
-    </header>
-            <!-- <div class="collapse navbar-collapse" id="navbarToggle">
-                <div class="navbar-nav mr-auto"> -->
-                    <!-- <a class="nav-item nav-link" href="/">Home</a> -->
-                    <!-- <a class="nav-item nav-link" href="{{ url_for('recipe_feed') }}">Recipe Feed</a>
-                    <form method="POST" action="/">
-                        <input type="text" name="search_query" placeholder="Search for Recipes">
-                        <input type="submit" value="Search">
-                    </form>
-                    </div> -->
-                    <!-- Navbar Right Side -->
-                    <!-- <div class="navbar-nav">
-                        {% if current_user.is_authenticated %} -->
-                        <!-- <img class="rounded-circle account-img" src="{{ image_file }}"> -->
-                        <!-- <a class="nav-item nav-link" href="{{ url_for('new_recipe') }}">Add a Recipe</a>
-                        <a class="nav-item nav-link" href="{{ url_for('user_recipes', username=current_user.username) }} ">My Recipes</a>
-                        <a class="nav-item nav-link" href="{{ url_for('logout') }}">Logout</a>
-                        <a href="{{ url_for('account') }}">
-                            <img id="pfp" class="rounded-circle ml-2" src="{{ url_for('static', filename='images/' + current_user.image_file )}}" width="40" height="40">
-                        </a> -->
-                        <!-- <div class="nav-item sub-menu-wrap">
-                            <div class="sub-menu">
-                                <a class="nav-item nav-link" href="{{ url_for('logout') }}">Logout</a>
-                                <a class="nav-item nav-link" href="{{ url_for('new_recipe') }}">Add a Recipe</a>
-                            </div>
-                        </div> -->
-                        <!-- {% else %}
-                            <a class="nav-item nav-link" href="{{ url_for('login') }}">Login</a>
-                            <a class="nav-item nav-link" href="{{ url_for('register') }}">Register</a>
-                        {% endif %} -->
-                    <!-- </div>
-                </div> -->
-            <!-- </div>
-        </nav> -->
-    <!-- <main role="main" class="container"> 
-        <div class="row">
-            <div class="col-md-8">-->
-                <!-- {% with messages = get_flashed_messages(with_categories=true) %}
-                    {% if messages %}
-                        {% for category, message in messages %}
-                            <div class="alert alert-{{ category }}">
-                                {{ message }}
-                            </div>
-                        {% endfor %}
-                    {% endif %}
-                {% endwith %} -->
-                {% block content %}{% endblock %}
-            <!--</div>
-            <div class="col-md-4">
-                <div class="content-section">
-                    <h3>Tending Right Now</h3>
-                    <p class='text-muted'>You can put any information here you'd like.
-                    <ul class="list-group">
-                        <li class="list-group-item list-group-item-light">Latest Posts</li>
-                        <li class="list-group-item list-group-item-light">Announce</li>
-                        <li class="list-group-item list-group-item-light">Calendars</li>
-                        <li class="list-group-item list-group-item-light">etc</li>
-                    </ul>
-                    </p>
-                </div>
+        <header>
+            <div class="header-content">
+                <a class="logo" href="{{ url_for('index') }}">Dish Share</a>
+                <form method="POST" action="/" class="search-bar">
+                    <input type="text" name="search_query" placeholder="Search for Recipes">
+                    <button type="submit"><img src="{{ url_for('static', filename='images/search-logo.png') }}"></button>
+                </form>
             </div>
-        </div>
-    </main>
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script> -->
+            <nav class="nav-bar">
+                <a class="active" href="{{ url_for('home') }}">Home</a>
+                <a href="{{ url_for('recipe_feed') }}">Recipe Feed</a>
+                <a href="{{ url_for('index') }}">About</a>
+                {% if current_user.is_authenticated %}
+                    <a href="{{ url_for('account') }}">Account</a>
+                    <a href="{{ url_for('new_recipe') }}">Add a Recipe</a>
+                    <a href="{{ url_for('user_recipes', username=current_user.username) }}">My Recipes</a>
+                    <a href="{{ url_for('logout') }}">Logout</a>
+                {% else %}
+                    <a href="{{ url_for('login') }}">Sign In</a>
+                    <a href="{{ url_for('register') }}">Register</a>
+                {% endif %}
+            </nav>
+        </header>
+            {% block content %}{% endblock %}
+        <footer>
+            <div>
+                <small>©2023 Dish Share. All rights reserved | socials</small>
+            </div>
+            <div>
+                <ul class="socials">
+                    <li><a href="https://github.com/Elbadil"><img class="socials-logo" src="{{ url_for('static', filename='images/github-logo.png')}}" alt="github"></a></li>
+                    <li><a href="https://twitter.com/Adil_ElBali"><img class="socials-logo-x" src="{{ url_for('static', filename='images/x-logo.png')}}" alt="twitter"></a></li>
+                    <li><a href="mailto:elbaliadil@gmail.com"><img class="socials-logo" src="{{ url_for('static', filename='images/gmail-logo.png')}}" alt="gmail"></a></li>
+                    <li><a href="https://www.linkedin.com/in/adil-el-bali/"><img class="socials-logo" src="{{ url_for('static', filename='images/link-logo.png')}}" alt="linkedin"></a></li>
+                </ul>
+            </div>
+        </footer>
   </body>
 </html>

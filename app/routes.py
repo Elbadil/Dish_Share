@@ -127,7 +127,7 @@ def login():
             login_user(user, remember=form.remember.data)
             # the page that the user was not allowed to enter
             next_page = request.args.get('next')
-            return redirect(next_page) if next_page else redirect(url_for('recipe_feed'))
+            return redirect(next_page) if next_page else redirect(url_for('home'))
         else:
             flash('Login Unsuccessful. Please check your email and password', 'error')
     return render_template('login.html', form=form, title='Login')
@@ -137,7 +137,7 @@ def login():
 def logout():
     """Logout page"""
     logout_user()
-    return redirect(url_for('recipe_feed'))
+    return redirect(url_for('index'))
 
 # Saves the profile picture entered by the user and returns the path
 def save_picture(form_picture):
