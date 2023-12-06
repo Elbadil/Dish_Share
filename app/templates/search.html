@@ -1,13 +1,19 @@
 {% extends "layout.html" %}
 {% block content %}
-    {% for recipe in recipes %}
-    <article class="media content-section">
-        <div class="media-body">
-            <h2><a class="article-title" href="{{ url_for('extern_recipe', recipe_id=recipe.id) }}">{{ recipe.title }}</a></h2>
-            <a href="{{ url_for('extern_recipe', recipe_id=recipe.id) }}">
-                <img class="rounded img-fluid mb-3" src="{{ recipe.image }}">
-            </a>
+    <div class="search-center">
+        <div class="results">
+            {% if recipes %}
+                {% for recipe in recipes %}
+                <div class="results-items">
+                    <a href="{{ url_for('extern_recipe', recipe_id=recipe.id) }}">
+                        <img class="results-img" src="{{ recipe.image }}">
+                    </a>
+                    <h4 class="results-title"><a href="{{ url_for('extern_recipe', recipe_id=recipe.id) }}"><span class="loop-index">{{ loop.index0 + 1 }}. </span>{{ recipe.title }}</a></h5>
+                </div>
+                {% endfor %}
+            {% else %}
+                <p>no results for "{{ search_query }}"</p>
+            {% endif %}
         </div>
-    </article>
-    {% endfor %}
+    </div>
 {% endblock content %}

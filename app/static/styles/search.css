@@ -1,0 +1,43 @@
+
+.search-center {
+    flex: 1;
+    margin-top: 70px;
+    margin-right: 90px;
+    margin-left: 120px;
+    margin-bottom: 30px;
+}
+
+.results {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.results-items {
+    width: 20%;
+    margin-top: 35px;
+    margin-bottom: 15px;
+}
+
+.results-img {
+    width: 80%;
+    border-radius: 10px;
+}
+
+.results-title {
+    width: 90%;
+}
+
+.results-items a {
+    text-decoration: none;
+    color: #0530ad;
+}
+
+.results-items a:hover {
+    text-decoration: underline;
+}
+
+.loop-index {
+    font-size: 25px;
+    color: seagreen;
+}

@@ -1,0 +1,30 @@
+.about-section {
+    background-color: #D0F0C0;
+    margin-top: 60px;
+    flex: 1;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    width: 100%;
+}
+
+.more-about {
+    width: 50%;
+    text-align: center;
+    margin-bottom: 90px;
+}
+.more-about h1 {
+    font-size: 53px;
+}
+
+.more-about {
+    font-size: 18px;
+}
+
+.abouts {
+    margin-top: 50px;
+}
+
+.abouts a {
+    color: #004792;
+}

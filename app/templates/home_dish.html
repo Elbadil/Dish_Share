@@ -1,46 +1,48 @@
 {% extends "layout.html" %}
 {% block content %}
-    <div class="feed-center">
-        <article class="media content-section">
-            <div class="title-description">
-                <!-- Recipe Title -->
-                <h2 class="article-title">Spaghetti alla Carbonara</h2>
-                <!-- Recipe description -->
-                <p class="article-content">Spaghetti alla Carbonara is a quintessential 
-                    Roman pasta dish that captures the essence of simplicity and flavor. 
-                    The dish is characterized by al dente spaghetti noodles coated in a 
-                    luscious sauce made with eggs, Pecorino Romano cheese.</p>
-                <!-- Recipe image -->
-                <img class="feed-img" src="{{ url_for('static', filename='images/spaghetti-chicken.jpg') }}" >
-                <div class="ing-inst">
-                    <!-- Ingredients -->
-                    <h3>Ingredients:</h3>
-                    <ul>
-                        <li>Around 400 grams of spaghetti, cooked al dente according to package instructions.</li>
-                        <li>3 to 4 large eggs. Some recipes use just the yolks for a creamier texture.</li>
-                        <li>About 1 cup of freshly grated Pecorino Romano cheese. This cheese is key to the dish's flavor, but you can also use Parmesan if needed.</li>
-                        <li>Freshly ground black pepper to taste. It adds a crucial element of spiciness to balance the richness of the dish.</li>
-                    </ul>
-                    <!-- Intrustions -->
-                    <h3>Instructions:</h3>
-                    <ol>
-                        <h4>Step 1</h4>
-                        <li>Cook the spaghetti according to the package instructions until al dente.</li>
-                        <h4>Step 2</h4>
-                        <li>While the pasta is cooking, whisk together the eggs, grated Pecorino Romano cheese, and a generous amount of freshly ground black pepper in a bowl. Set aside.</li>
-                        <h4>Step 3</h4>
-                        <li>In a large skillet, cook the diced or sliced guanciale over medium heat until it becomes crispy and releases its fat. This usually takes about 5-7 minutes.</li>
-                        <h4>Step 4</h4>
-                        <li>Once the spaghetti is cooked, drain it and add it to the skillet with the crispy guanciale. Toss the pasta in the rendered fat until well coated.</li>
-                        <h4>Step 5</h4>
-                        <li>Remove the skillet from heat and quickly pour the egg and cheese mixture over the hot pasta. Toss the pasta vigorously to combine, allowing the heat from the pasta to cook the eggs and create a creamy sauce.</li>
-                        <h4>Step 6</h4>
-                        <li>If the sauce is too thick, you can add a bit of the reserved pasta cooking water a little at a time until you achieve the desired consistency.</li>
-                        <h4>Step 7</h4>
-                        <li>Plate the spaghetti and carbonara sauce, and finish with an extra sprinkle of Pecorino Romano cheese and black pepper.</li>
-                    </ol>
+    <div class="feed-center_all">
+        <div class="feed-center">
+            <article class="media content-section">
+                <div class="title-description">
+                    <!-- Recipe Title -->
+                    <h2 class="article-title">Spaghetti alla Carbonara</h2>
+                    <!-- Recipe description -->
+                    <p class="article-content">Spaghetti alla Carbonara is a quintessential 
+                        Roman pasta dish that captures the essence of simplicity and flavor. 
+                        The dish is characterized by al dente spaghetti noodles coated in a 
+                        luscious sauce made with eggs, Pecorino Romano cheese.</p>
+                    <!-- Recipe image -->
+                    <img class="feed-img" src="{{ url_for('static', filename='images/spaghetti-chicken.jpg') }}" >
+                    <div class="ing-inst">
+                        <!-- Ingredients -->
+                        <h3>Ingredients:</h3>
+                        <ul>
+                            <li>Around 400 grams of spaghetti, cooked al dente according to package instructions.</li>
+                            <li>3 to 4 large eggs. Some recipes use just the yolks for a creamier texture.</li>
+                            <li>About 1 cup of freshly grated Pecorino Romano cheese. This cheese is key to the dish's flavor, but you can also use Parmesan if needed.</li>
+                            <li>Freshly ground black pepper to taste. It adds a crucial element of spiciness to balance the richness of the dish.</li>
+                        </ul>
+                        <!-- Intrustions -->
+                        <h3>Instructions:</h3>
+                        <ol>
+                            <h4>Step 1</h4>
+                            <li>Cook the spaghetti according to the package instructions until al dente.</li>
+                            <h4>Step 2</h4>
+                            <li>While the pasta is cooking, whisk together the eggs, grated Pecorino Romano cheese, and a generous amount of freshly ground black pepper in a bowl. Set aside.</li>
+                            <h4>Step 3</h4>
+                            <li>In a large skillet, cook the diced or sliced guanciale over medium heat until it becomes crispy and releases its fat. This usually takes about 5-7 minutes.</li>
+                            <h4>Step 4</h4>
+                            <li>Once the spaghetti is cooked, drain it and add it to the skillet with the crispy guanciale. Toss the pasta in the rendered fat until well coated.</li>
+                            <h4>Step 5</h4>
+                            <li>Remove the skillet from heat and quickly pour the egg and cheese mixture over the hot pasta. Toss the pasta vigorously to combine, allowing the heat from the pasta to cook the eggs and create a creamy sauce.</li>
+                            <h4>Step 6</h4>
+                            <li>If the sauce is too thick, you can add a bit of the reserved pasta cooking water a little at a time until you achieve the desired consistency.</li>
+                            <h4>Step 7</h4>
+                            <li>Plate the spaghetti and carbonara sauce, and finish with an extra sprinkle of Pecorino Romano cheese and black pepper.</li>
+                        </ol>
+                    </div>
                 </div>
-            </div>
-        </article>
+            </article>
+        </div>
     </div>
 {% endblock content %}

@@ -27,13 +27,8 @@ def index():
         query = request.form.get('search_query', '')
         # Perform a search for recipes with the given query
         recipes = search_recipes(query)
-        if recipes:
-            return render_template('search.html', title=query,
-                                   recipes=[],
-                                   search_query=query)
-        else:
-            # Handle the case where no recipes are found
-            return render_template('search.html', title=query, recipes=[],
+        return render_template('search.html', title=query,
+                                   recipes=recipes['results'],
                                    search_query=query)
     # If it's a get request or no form is submitted
     return render_template('index.html')
@@ -41,13 +36,15 @@ def index():
 # Defining a function that searches for recipes based on query
 def search_recipes(query):
     """Returns recipes based on a given query"""
-    # params = {'apiKey': API_KEY,
-    #           'query': query}
-    # req = requests.get(SPN_API, params=params)
-    # if req.status_code == 200:
-    #     recipes = req.json()
-    #     return recipes
-    # return []
+    params = {'apiKey': API_KEY,
+              'query': query,
+              'addRecipeInformation': True,
+              'number': 15}
+    req = requests.get(SPN_API, params=params)
+    if req.status_code == 200:
+        recipes = req.json()
+        return recipes
+    return []
     
 # Home page route
 @app.route('/home', strict_slashes=False)
@@ -89,6 +86,12 @@ def extern_recipe(recipe_id):
         recipe = req.json()
         return render_template('extern_recipe.html', recipe=recipe, title=recipe['title'])
     return "Recipe not found", 404
+
+# About section route
+@app.route('/about', methods=['GET'], strict_slashes=False)
+def about():
+    """About section of the web app"""
+    return render_template('about.html', title="About Us")
 
 # recipe feed route
 @app.route('/recipe_feed', strict_slashes=False)

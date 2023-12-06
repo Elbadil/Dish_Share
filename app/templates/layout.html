@@ -8,16 +8,19 @@
     {% else %}
     <title>Dish Share</title>
     {% endif %}
+    <link rel="icon" type="images/png" href="{{ url_for('static', filename='images/icon.png')}}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/home.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/layout.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/login.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/account.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/feed.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/about.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/search.css') }}">
   </head>
   <body>
         <header>
             <div class="header-content">
-                <a class="logo" href="{{ url_for('index') }}">Dish Share</a>
+                <a class="logo" href="{{ url_for('index') }}">Dish Share<img class="logo-img" src="{{ url_for('static', filename='images/logo-img-1.png')}}"></a>
                 <form method="POST" action="/" class="search-bar">
                     <input type="text" name="search_query" placeholder="Search for Recipes">
                     <button type="submit"><img src="{{ url_for('static', filename='images/search-logo.png') }}"></button>
@@ -26,7 +29,7 @@
             <nav class="nav-bar">
                 <a class="active" href="{{ url_for('home') }}">Home</a>
                 <a href="{{ url_for('recipe_feed') }}">Recipe Feed</a>
-                <a href="{{ url_for('index') }}">About</a>
+                <a href="{{ url_for('about') }}">About</a>
                 {% if current_user.is_authenticated %}
                     <a href="{{ url_for('account') }}">Account</a>
                     <a href="{{ url_for('new_recipe') }}">Add a Recipe</a>
@@ -40,16 +43,17 @@
         </header>
             {% block content %}{% endblock %}
         <footer>
-            <div>
-                <small>©2023 Dish Share. All rights reserved | socials</small>
+            <div class="rights">
+                <small>©2023 Dish Share | Recipe Sharing App, Adil El Bali. All rights reserved.</small>
             </div>
             <div>
                 <ul class="socials">
                     <li><a href="https://github.com/Elbadil"><img class="socials-logo" src="{{ url_for('static', filename='images/github-logo.png')}}" alt="github"></a></li>
-                    <li><a href="https://twitter.com/Adil_ElBali"><img class="socials-logo-x" src="{{ url_for('static', filename='images/x-logo.png')}}" alt="twitter"></a></li>
-                    <li><a href="mailto:elbaliadil@gmail.com"><img class="socials-logo" src="{{ url_for('static', filename='images/gmail-logo.png')}}" alt="gmail"></a></li>
-                    <li><a href="https://www.linkedin.com/in/adil-el-bali/"><img class="socials-logo" src="{{ url_for('static', filename='images/link-logo.png')}}" alt="linkedin"></a></li>
+                    <li><a href="https://twitter.com/Adil_ElBali"><img class="socials-logo-x" src="{{ url_for('static', filename='images/x-logo.png')}}" alt="twitter"></a></li>                    <li><a href="https://www.linkedin.com/in/adil-el-bali/"><img class="socials-logo" src="{{ url_for('static', filename='images/link-logo.png')}}" alt="linkedin"></a></li>
                 </ul>
+            </div>
+            <div class="credits">
+                <small>Dishes Pictures By <a href="https://www.freepik.com">Freepik</a> | External Recipes By <a href="https://spoonacular.com/food-api">Spoonacular</a></small>
             </div>
         </footer>
   </body>

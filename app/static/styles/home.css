@@ -142,7 +142,7 @@
 footer {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     width: 100%;
     height: 50px;
     background-color: seagreen;
@@ -150,13 +150,27 @@ footer {
     padding: 10px;
 }
 
-footer small {
+footer small a {
+    color: #87CEFA;
+    text-decoration: none;
+}
+
+footer small a:hover {
+    color: white;
+    text-decoration: underline;
+}
+
+.rights {
     margin-left: 130px;
     color: white;
 }
 
-.socials {
+.credits {
     margin-right: 130px;
+    color: white;
+}
+
+.socials {
     list-style: none;
     width: 100%;
 }
@@ -166,11 +180,17 @@ footer small {
 }
 
 .socials-logo {
-    width: 20px;
+    width: 22px;
     margin-left: 10px;
-}
+ }
  
-.socials-logo-x {
-    width: 15px;
-    margin-left: 10px;
+ .socials-logo-x {
+     width: 17px;
+     margin-left: 10px;
+ }
+ 
+
+.logo-img {
+    width: 22px;
+    margin-left: 7px;
 }
