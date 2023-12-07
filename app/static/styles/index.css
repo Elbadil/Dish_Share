@@ -84,9 +84,9 @@ header {
 }
 
 .landing-right {
-    width: 47%;
+    width: 45%;
     margin-right: 50px;
-    margin-top: 90px;
+    margin-top: 100px;
 }
 
 .landing-img {
@@ -97,8 +97,8 @@ header {
 }
 
 .landing-left {
-    width: 40%;
-    padding-top: 140px;
+    width: 37%;
+    padding-top: 120px;
     margin-left: 120px;
 }
 
