@@ -15,7 +15,7 @@ load_dotenv(dotenv_path)
 app = Flask(__name__)
 
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
-app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DS_DB_LINK')
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqldb://ds_user:adelelb15@localhost/dish_share_db'
 
 # App MySQL Database
 db = SQLAlchemy(app)
