@@ -15,9 +15,13 @@ load_dotenv(dotenv_path)
 app = Flask(__name__)
 
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
-app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DS_DB_LINK')
+
 
 # App MySQL Database
+if os.getenv('TESTS'):
+    app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DS_DB_TEST_LINK')
+else:
+    app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DS_DB_LINK')
 db = SQLAlchemy(app)
 
 # Password hashing Instance
