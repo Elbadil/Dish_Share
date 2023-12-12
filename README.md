@@ -1,33 +1,68 @@
 # Dish Share
 ## Where Culinary Creativity Finds Its Community.
 ![Project Landing Page](https://github.com/Elbadil/Dish_Share/raw/master/app/static/images/landing-page.jpg)
-### Introduction
+## Introduction
 Welcome to [Dish Share](https://www.elbadel.tech), a platform where you can discover a world of diverse recipe ideas and showcase your culinary masterpieces!
 At Dish Share, you have the opportunity to create your own personal account. Sign in anytime to explore, share, and get inspired by different recipe ideas provided by the platform and your fellow food enthusiasts. However, it's important to note that you don't have to sign in to enjoy browsing and discovering the wonderful posts and recipes shared by the community.
 
 The idea behind Dish Share is simple, I wanted to create something that not only showcases the skills and tools I've acquired at ALX but also aligns with my love for food. Being a food enthusiast myself, it became the perfect project for me to take on.
 
-### Technology Stack
-#### Backend:
+## Technology Stack
+### Backend:
 * Python (Framework: Flask)
 
-#### Frontend:
+### Frontend:
 * HTML
 * CSS
 * Javascript
 
-#### Database:
+### Database:
 * MySQL
 
-#### DevOps:
+### DevOps:
 * **Web Server:** Nginx
 * **Application Server:** Gunicorn to serve the Flask app
 * **Security:** Utilized SSL for secure connections and UFW Firewall for added protection.
 
-### Project Development Overview
-#### Backend:
-In this section, I'll provide a detailed overview of my work on Dish Share, covering aspects from the backend to the frontend.
-1. **Database Setup:**
+## Dish Share - BackEnd
+### Technologies
+The back-end server and RESTful API of Dish Share, built in **Python**, **Flask** Framework and **MySQL** database.
+
+### API
+For External API I've used the Spoonacular API to enhance user experience by providing a diverse range of recipe suggestions. Spoonacular is a comprehensive food API that offers access to a vast database of recipes, ingredients, and culinary information.
+Visit to the [Spoonacular API documentation](https://spoonacular.com/food-api/docs) for detailed information on terms of use and guidelines, available endpoints, request formats, and response structures.
+
+## Dish Share - FrontEnd
+### Technologies Used:
+The front-end of Dish Share, built using **HTML**, **CSS**, and **Javascript**.
+
+### Routes:
+
+- **`/` - Landing Page:**
+  Introduction to Dish Share, featuring the web app's slogan, description, and key features.
+
+- **`/home` - Home Page:**
+  Displays various recipe ideas directly on the home page, showcasing a curated selection.
+
+- **`/recipe-feed` - Recipe Feed Page:**
+  Showcases user-generated recipe posts, each containing the user's name, date posted, recipe title, and an accompanying picture.
+
+- **`/recipe/:id` - Recipe Page:**
+  Displays detailed information about a specific recipe, including ingredients and instructions.
+
+- **`/recipes/:username` - User's Recipes Page:**
+  Displays all recipe posts submitted by a specific user.
+
+- **`/recipes/new` - Add New Recipe Page:**
+  Allows users to fill out a form with all the necessary information for posting a new recipe (title, description, ingredients, etc.).
+
+- **`/login` - Login Page:**
+  Provides a login form for user authentication.
+
+- **`/register` - Sign Up Page:**
+  Features a registration form for new user sign-ups.
+
+<!-- 1. **Database Setup:**
    - Created a MySQL database and user to store web app data.
 
 2. **Authentication System:**
@@ -45,7 +80,7 @@ In this section, I'll provide a detailed overview of my work on Dish Share, cove
       - Showcased trending recipes on the home page for current popular choices.
       - Created an "Explore Recipes" section, utilizing the Spoonacular API to provide users with a diverse range of recipe suggestions.
 
-#### Frontend:
+### Frontend:
 1. **Navigation Bar:**
    - Created a navigation bar where the Dish Share logo is aligned on the left, and on the right, defined different sections provided by the web app.
 
@@ -67,13 +102,7 @@ In this section, I'll provide a detailed overview of my work on Dish Share, cove
          + **Second Section:**
             - Added an "Explore Recipes" section, utilizing the Spoonacular API to allow users to discover various recipes directly from the home page.
    * **Recipe Feed:**
-      - The Recipe Feed page is designed as articles where every article is a recipe post by the user that contains the name of the user, date posted, recipe's title, and recipe's picture. It is ordered from the latest to the oldest. I defined 5 posts for a maximum number of posts per page. Users can navigate from page to page using number buttons at the bottom of the page.
+      - The Recipe Feed page is designed as articles where every article is a recipe post by the user that contains the name of the user, date posted, recipe's title, and recipe's picture. It is ordered from the latest to the oldest. I defined 5 posts for a maximum number of posts per page. Users can navigate from page to page using number buttons at the bottom of the page. -->
+<!-- 
+      - To get the full recipe with its ingredients and intructions, you can just click the title or the image or a link that says full recipe to navigate to the page of the full recipe. -->
 
-      <!-- - To get the full recipe with its ingredients and intructions, you can just click the title or the image or a link that says full recipe to navigate to the page of the full recipe. -->
-      
-
-   
-
-
-
-For the frontend, I started with 
