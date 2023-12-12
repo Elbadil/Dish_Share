@@ -13,6 +13,7 @@
             {% endwith %}
             {% for recipe in recipes.items %}
             <article class="media content-section">
+                <!-- Recipe User -->
                 <div class="media-body">
                     <a href="{{ url_for('user_recipes', username=recipe.user.username) }}">
                         <img class="rounded-circle article-img" src="{{ url_for('static', filename='images/' + recipe.user.image_file) }}">
@@ -24,6 +25,7 @@
                         </div>
                     </div>
                 </div>
+                <!-- Recipe Information -->
                 <div class="title-description">
                     <a class="article-title" href="{{ url_for('recipe', recipe_id=recipe.id) }}"><h2 class="main-dish">{{ recipe.title }}</h2></a>
                     <p class="article-content">{{ recipe.description }} <a class="full-link" href="{{ url_for('recipe', recipe_id=recipe.id) }}">Full Recipe</a>

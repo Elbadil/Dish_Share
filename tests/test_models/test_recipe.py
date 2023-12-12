@@ -1,12 +1,10 @@
 #!/usr/bin/python3
-"""Unittest for Recipe class attributes and methods"""
+"""Unittest for Recipe Model attributes and methods"""
 
 import unittest
 from app.models import BaseModel, User, Recipe, Ingredient, Instruction
 from datetime import datetime
-from flask_login import UserMixin
 from app import app, db
-from sqlalchemy.exc import IntegrityError
 import os
 
 
@@ -17,19 +15,17 @@ if os.getenv('TESTS'):
         @classmethod
         def setUpClass(cls):
             """Set Up the testing environment"""
-            if os.getenv('TESTS'):
-                cls.app = app  
-                cls.app_context = cls.app.app_context()
-                cls.app_context.push()
-                db.create_all()
+            cls.app = app  
+            cls.app_context = cls.app.app_context()
+            cls.app_context.push()
+            db.create_all()
 
         @classmethod
         def tearDownClass(cls):
             """Tear down the testing environment"""
-            if os.getenv('TESTS'):
-                db.session.remove()
-                db.drop_all()
-                cls.app_context.pop()
+            db.session.remove()
+            db.drop_all()
+            cls.app_context.pop()
         
         def test_recipe_parent_classes(self):
             """check Recipe's Parent classes"""
@@ -57,9 +53,42 @@ if os.getenv('TESTS'):
             recipe = Recipe(title="Test Recipe", description="Test description", user_id=user.id)
             db.session.add(recipe)
             db.session.commit()
+            self.assertIn(recipe, user.recipes)
             self.assertIsInstance(recipe.id, str)
             self.assertIsInstance(recipe.created_at, datetime)
             self.assertIsInstance(recipe.updated_at, datetime)
             self.assertEqual(recipe.title, "Test Recipe")
             self.assertEqual(recipe.description, "Test description")
             self.assertEqual(recipe.user_id, user.id)
+        
+        def test_recipe_ingredient_relationship(self):
+            """test for recipe and Ingredient relationship"""
+            user = User(username="testuser1", email="test1@example.com", password="testpassword")
+            db.session.add(user)
+            db.session.commit()
+            recipe = Recipe(title="Test Recipe", description="Test description", user_id=user.id)
+            db.session.add(recipe)
+            db.session.commit()
+            self.assertIn(recipe, user.recipes)
+            ingredient = Ingredient(name="Test Ingredient", order=1, recipe_id=recipe.id)
+            db.session.add(ingredient)
+            db.session.commit()
+            self.assertIn(ingredient, recipe.ingredients)
+        
+        def test_recipe_instruction_relationship(self):
+            """test for recipe and Instruction relationship"""
+            user = User(username="testuser2", email="test2@example.com", password="testpassword")
+            db.session.add(user)
+            db.session.commit()
+            recipe = Recipe(title="Test Recipe", description="Test description", user_id=user.id)
+            db.session.add(recipe)
+            db.session.commit()
+            self.assertIn(recipe, user.recipes)
+            instruction = Instruction(text="Test Instruction", step=1, recipe_id=recipe.id)
+            db.session.add(instruction)
+            db.session.commit()
+            self.assertIn(instruction, recipe.instructions)
+
+
+if __name__ == "__main__":
+    unittest.main()

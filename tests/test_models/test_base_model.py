@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Unittest for Base_model class attributes and methods"""
+"""Unittest for Base_model Model attributes and methods"""
 
 import unittest
 from app.models import BaseModel, User, Recipe, Ingredient, Instruction, Comment

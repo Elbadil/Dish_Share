@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Unittest for User class attributes and methods"""
+"""Unittest for User Model attributes and methods"""
 
 import unittest
 from app.models import BaseModel, User, Recipe
@@ -17,19 +17,17 @@ if os.getenv('TESTS'):
         @classmethod
         def setUpClass(cls):
             """Set Up the testing environment"""
-            if os.getenv('TESTS'):
-                cls.app = app  
-                cls.app_context = cls.app.app_context()
-                cls.app_context.push()
-                db.create_all()
+            cls.app = app  
+            cls.app_context = cls.app.app_context()
+            cls.app_context.push()
+            db.create_all()
 
         @classmethod
         def tearDownClass(cls):
             """Tear down the testing environment"""
-            if os.getenv('TESTS'):
-                db.session.remove()
-                db.drop_all()
-                cls.app_context.pop()
+            db.session.remove()
+            db.drop_all()
+            cls.app_context.pop()
 
         def test_user_parent_classes(self):
             """check User's Parent classes"""
