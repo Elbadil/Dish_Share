@@ -24,6 +24,8 @@ The idea behind Dish Share is simple, I wanted to create something that not only
 * **Application Server:** Gunicorn to serve the Flask app
 * **Security:** Utilized SSL for secure connections and UFW Firewall for added protection.
 
+---
+
 ## Dish Share - BackEnd
 ### Technologies
 The back-end server and RESTful API of Dish Share, built in **Python**, **Flask** Framework and **MySQL** database.
@@ -31,6 +33,8 @@ The back-end server and RESTful API of Dish Share, built in **Python**, **Flask*
 ### API
 For External API I've used the Spoonacular API to enhance user experience by providing a diverse range of recipe suggestions. Spoonacular is a comprehensive food API that offers access to a vast database of recipes, ingredients, and culinary information.
 Visit to the [Spoonacular API documentation](https://spoonacular.com/food-api/docs) for detailed information on terms of use and guidelines, available endpoints, request formats, and response structures.
+
+---
 
 ## Dish Share - FrontEnd
 ### Technologies Used:
@@ -61,6 +65,18 @@ The front-end of Dish Share, built using **HTML**, **CSS**, and **Javascript**.
 
 - **`/register` - Sign Up Page:**
   Features a registration form for new user sign-ups.
+
+---
+
+## Installation
+To set up and run the Dish Share App locally, follow these steps:
+   1. Clone the repository: *https://github.com/Elbadil/Dish_Share.git*  
+   2. Navigate to the project directory: *cd Dish_Share*
+   3. Create a virtual environment: *python -m venv env*
+   4. Navigate to the virtual environment: *source env/bin/activate*
+   5. Install the required dependancies: *pip install -r requirements.txt*
+   6. Run the app: *python3 -m app.routes*
+   7. Open the app on your browser: *http://127.0.0.1:5000/*
 
 <!-- 1. **Database Setup:**
    - Created a MySQL database and user to store web app data.
