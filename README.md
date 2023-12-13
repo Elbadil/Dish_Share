@@ -86,7 +86,7 @@ The front-end of Dish Share, built using **HTML**, **CSS**, and **Javascript**.
 
 ## Installation
 To set up and run the Dish Share App locally, follow these steps:
-   1. **Clone the repository:** *https://github.com/Elbadil/Dish_Share.git*  
+   1. **Clone the repository:** *git clone https://github.com/Elbadil/Dish_Share.git*  
    2. **Navigate to the project directory:** *cd Dish_Share*
    3. **Create a virtual environment:** *python -m venv env*
    4. **Navigate to the virtual environment:** *source env/bin/activate*
