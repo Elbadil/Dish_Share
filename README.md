@@ -33,7 +33,7 @@ For External API I've used the Spoonacular API to enhance user experience by pro
 Visit to the [Spoonacular API documentation](https://spoonacular.com/food-api/docs) for detailed information on terms of use and guidelines, available endpoints, request formats, and response structures.
 
 ## Dish Share - FrontEnd
-### Technologies Used:
+### Technologies
 The front-end of Dish Share, built using **HTML**, **CSS**, and **Javascript**.
 
 ### Routes:
@@ -64,7 +64,7 @@ The front-end of Dish Share, built using **HTML**, **CSS**, and **Javascript**.
 
 ## Dish Share - Project Structure
 ### Python Models:
-   - **__init__.py**: Initializes the Flask main app and database.
+   - **\_\_init\_\_.py**: Initializes the Flask main app and database.
    - **forms.py**: Contains Flask forms used for the Login, Register, Update Account, and Add Recipe functionalities.
    - **models.py**: Includes Models used for the web app database.
    - **routes.py**: Defines different routes for the web app.
