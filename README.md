@@ -94,7 +94,49 @@ To set up and run the Dish Share App locally, follow these steps:
    6. **Run the app:** *python3 -m app.routes*
    7. **Open the app on your browser:** *http://127.0.0.1:5000/*
 
-## Deployment and Hosting:
+## Deployment and Hosting
+
+### Hosting Provider
+Dish Share is hosted on [www.elbadel.tech](https://www.elbadel.tech), utilizing the services provided by .tech domains.
+
+### Deployment Infrastructure
+For deployment, I've used a server provided by ALX.
+
+### Web Server Configuration
+Static content is served using Nginx, a high-performance web server known for its efficiency and versatility.
+
+### Application Logic
+Gunicorn is employed to handle the application logic. Gunicorn acts as a WSGI HTTP server, providing a reliable and efficient solution for running Python web applications.
+
+### Security Measures
+
+#### Firewall
+A robust firewall is implemented to secure the server and protect against unauthorized access. Security rules are configured to allow only necessary traffic and restrict potential security threats.
+
+#### SSL/TLS Encryption
+The website is secured with SSL/TLS encryption to ensure data integrity and confidentiality. This is achieved through a valid SSL certificate, providing users with a secure and encrypted connection when accessing the site.
+
+### Technologies Used:
+- [Nginx](https://www.nginx.com/)
+- [Gunicorn](https://gunicorn.org/)
+- [.tech Domains](https://get.tech/)
+- [SSL/TLS](https://en.wikipedia.org/wiki/Transport_Layer_Security)
+
+## Acknowledgments
+I would like to express my gratitude to the following individuals and resources that have been very helpful in the development and deployment of this project:
+
+### Individuals
+   - **[Safuan](https://github.com/Safuan04):** My cousin, who was also working on his own project. We learned a lot from each other and provided mutual assistance whenever one of us faced challenges.
+
+### Resources
+   - [Flask Documentation](https://flask.palletsprojects.com/en/3.0.x/tutorial/).
+   - [Flask Tutorial Youtube Playlist by: Corey Schafer](https://www.youtube.com/watch?v=MwZwr5Tvyxo&list=PL-osiE80TeTs4UjLw5MM6OjgkjFeUxCYH&ab_channel=CoreySchafer)
+   - [DigitalOcean: How To Serve Flask Applications with Gunicorn and Nginx](https://www.digitalocean.com/community/tutorials/how-to-serve-flask-applications-with-gunicorn-and-nginx-on-ubuntu-16-04).
+   - ChatGPT
+
+<!-- ## License
+This project is licensed under the [MIT License] - see the [LICENSE](LICENSE) file for details. -->
+
 
 <!-- 1. **Database Setup:**
    - Created a MySQL database and user to store web app data.
