@@ -16,10 +16,11 @@ app = Flask(__name__)
 
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
 
-
 # App MySQL Database
 if os.getenv('TESTS'):
+    app.config['TESTING'] = True
     app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DS_DB_TEST_LINK')
+    app.config['WTF_CSRF_ENABLED'] = False
 else:
     app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DS_DB_LINK')
 db = SQLAlchemy(app)
