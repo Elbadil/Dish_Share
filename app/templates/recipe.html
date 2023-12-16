@@ -2,6 +2,15 @@
 {% block content %}
     <div class="feed-center_all">
         <div class="feed-center">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert-{{ category }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
             <article class="media content-section">
                 <div class="media-body">
                     <a href="{{ url_for('user_recipes', username=recipe.user.username) }}">
